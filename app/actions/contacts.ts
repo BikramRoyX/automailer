@@ -34,6 +34,23 @@ export async function copySystemContacts() {
         ])
 
         // 3. Fetch X Fresh Contacts from Community DB
+
+        // AUTO-SEED: Check if DB is empty (First Run / Production Config)
+        const globalCount = await db.globalHrList.count();
+        if (globalCount === 0) {
+            console.log("Seeding Global HR List...");
+            const dummyContacts = Array.from({ length: 50 }).map((_, i) => ({
+                email: `hr.talent.tech${i + 100}@gmail.com`,
+                domain: "gmail.com",
+                status: "safe",
+                confidence: 0.95
+            }));
+
+            await db.globalHrList.createMany({
+                data: dummyContacts
+            });
+        }
+
         // We need to fetch more than 50 initially to filter in memory if needed, 
         // or strictly rely on database filtering. Prisma `notIn` can be slow with huge lists, 
         // but for <10k exclusions it's fine. If list grows large, we need a raw query or better strategy.

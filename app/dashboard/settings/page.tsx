@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Loader2, CheckCircle2, XCircle, ShieldCheck, Mail, AlertCircle, Trash2, LogOut } from "lucide-react"
 import { resetUserData } from "@/app/actions/auth-reset"
-import { signOut } from "next-auth/react"
+import { signOut, signIn } from "next-auth/react"
 
 export default function SettingsPage() {
     const [status, setStatus] = useState<{ logged_in: boolean; gmail_connected: boolean; login_email: string; gmail_email: string; status: string } | null>(null)
@@ -42,7 +42,7 @@ export default function SettingsPage() {
 
     const handleConnect = () => {
         // Redirect to our custom OAuth flow
-        window.location.href = "/api/auth/google";
+        signIn("google-gmail", { callbackUrl: "/dashboard/settings" });
     }
 
     const handleDisconnect = async () => {

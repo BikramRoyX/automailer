@@ -44,6 +44,21 @@ export const authOptions: NextAuthOptions = {
                     prompt: "consent",
                     access_type: "offline",
                     response_type: "code",
+                    scope: "openid email profile"
+                }
+            }
+        }),
+        GoogleProvider({
+            id: "google-gmail",
+            name: "Gmail",
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            allowDangerousEmailAccountLinking: true,
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code",
                     scope: "openid email profile https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly"
                 }
             }

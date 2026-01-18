@@ -37,8 +37,8 @@ export async function GET() {
             return NextResponse.json({ error: "User not found" }, { status: 404 })
         }
 
-        // 1. Gmail Connected
-        const googleAccount = user.accounts.find(acc => acc.provider === "google" || acc.provider === "google-gmail")
+        // 1. Gmail Connected (Strict Mode: Must appear as 'google-gmail' provider)
+        const googleAccount = user.accounts.find(acc => acc.provider === "google-gmail")
         const gmail_connected = !!googleAccount
 
         // 2. Counts

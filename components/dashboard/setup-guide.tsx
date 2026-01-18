@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import { signIn } from "next-auth/react"
 import { uploadFile } from "@/app/actions/upload"
 import { copySystemContacts } from "@/app/actions/contacts"
 import { Button } from "@/components/ui/button"
@@ -154,10 +155,13 @@ export function SetupGuide({ step, status, gmailEmail, globalHrCount, onComplete
                                     </span>
                                 </div>
                             ) : (
-                                <Button className="w-full md:w-auto px-8 py-6 text-lg bg-white text-black hover:bg-zinc-200 group/btn" asChild>
-                                    <a href="/dashboard/settings" className="flex items-center justify-center gap-2">
+                                <Button
+                                    className="w-full md:w-auto px-8 py-6 text-lg bg-white text-black hover:bg-zinc-200 group/btn"
+                                    onClick={() => signIn("google-gmail", { callbackUrl: "/dashboard" })}
+                                >
+                                    <span className="flex items-center justify-center gap-2">
                                         Connect Google Account <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-1" />
-                                    </a>
+                                    </span>
                                 </Button>
                             )}
                         </div>
