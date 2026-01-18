@@ -137,16 +137,23 @@ export async function POST(req: Request) {
         // The previous DNS check was too aggressive and slow.
 
         // 2. Fetch Google Account AND User (separately for safety)
-        const account = await db.account.findFirst({
+        // STRICT: We need the 'google-gmail' account for sending scopes.
+        // We fetch all accounts and select the best one.
+        const accounts = await db.account.findMany({
             where: {
                 userId: session.user.id,
                 provider: { in: ["google", "google-gmail"] }
             }
         })
 
+        // Filter: Prefer google-gmail
+        const account = accounts.find(a => a.provider === "google-gmail") || accounts.find(a => a.provider === "google");
+
         if (!account || !account.access_token) {
             return new NextResponse("Google account not connected", { status: 400 })
         }
+
+
 
         const user = await db.user.findUnique({
             where: { id: session.user.id },

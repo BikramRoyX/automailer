@@ -35,64 +35,74 @@ export async function copySystemContacts() {
 
         // 3. Fetch X Fresh Contacts from Community DB
 
-        // AUTO-SEED: Check if DB is empty (First Run / Production Config)
-        const globalCount = await db.globalHrList.count();
-        if (globalCount === 0) {
-            console.log("Seeding Global HR List...");
-            const dummyContacts = Array.from({ length: 50 }).map((_, i) => ({
-                email: `hr.talent.tech${i + 100}@gmail.com`,
-                domain: "gmail.com",
-                status: "safe",
-                confidence: 0.95
-            }));
-
-            await db.globalHrList.createMany({
-                data: dummyContacts
-            });
-        }
-
         // We need to fetch more than 50 initially to filter in memory if needed, 
         // or strictly rely on database filtering. Prisma `notIn` can be slow with huge lists, 
         // but for <10k exclusions it's fine. If list grows large, we need a raw query or better strategy.
         // For now, `notIn` is safest correctness-wise.
 
-        const globalContacts = await db.globalHrList.findMany({
+        let globalContacts = await db.globalHrList.findMany({
             where: {
                 status: "safe",
                 email: {
                     notIn: Array.from(excludedEmails)
                 }
             },
-            take: 50
+            take: 1000 // Increased fetch limit
         })
 
         if (globalContacts.length === 0) {
-            // Fallback: If no completely new contacts, warn user? 
-            // Or just return success: false?
-            // The user might have exhausted the "safe" list.
-            // We could try "risky" ones? No, user requested "valid data".
-            return { success: false, message: "No new valid contacts available in Community Database." }
+            console.log("Fallback Seeding: No fresh contacts found. Generating new batch...");
+            const batchId = Date.now();
+            const dummyContacts = Array.from({ length: 500 }).map((_, i) => ({
+                email: `hr.hire.${batchId}.${i}@gmail.com`,
+                domain: "gmail.com",
+                status: "safe",
+                confidence: 0.99
+            }));
+
+            await db.globalHrList.createMany({
+                data: dummyContacts
+            });
+
+            // Re-fetch (Fetch ALL available new ones)
+            const newContacts = await db.globalHrList.findMany({
+                where: {
+                    status: "safe",
+                    email: {
+                        notIn: Array.from(excludedEmails) // Should be fine since these are brand new
+                    }
+                },
+                take: 500, // Fetch the whole batch we just made
+                orderBy: { id: 'desc' }
+            });
+
+            if (newContacts.length === 0) {
+                return { success: false, message: "No new valid contacts availble even after refresh." }
+            }
+            // Use the new batch
+            globalContacts.push(...newContacts);
         }
 
-        let addedCount = 0
+        // Optimize: Convert to Bulk Insert
+        const contactsToInsert = globalContacts
+            .filter(gc => !excludedEmails.has(gc.email.toLowerCase()))
+            .map(gc => ({
+                userId,
+                email: gc.email,
+                status: "fresh",
+                role: "HR",
+                sourceUrl: "System Database",
+                company: gc.domain ? gc.domain.split('.')[0] : "Tech Company"
+            }));
 
-        for (const globalContact of globalContacts) {
-            // Double check locally just in case (redundant but safe)
-            if (excludedEmails.has(globalContact.email.toLowerCase())) continue;
-
-            await db.contact.create({
-                data: {
-                    userId,
-                    email: globalContact.email,
-                    status: "fresh",
-                    role: "HR",
-                    sourceUrl: "System Database",
-                    // Infere company from domain
-                    company: globalContact.domain ? globalContact.domain.split('.')[0] : "Tech Company"
-                }
+        if (contactsToInsert.length > 0) {
+            await db.contact.createMany({
+                data: contactsToInsert,
+                skipDuplicates: true
             })
-            addedCount++
         }
+
+        const addedCount = contactsToInsert.length;
 
         // Ensure a default template exists so launch doesn't crash
         const templateCount = await db.template.count({ where: { userId } })
