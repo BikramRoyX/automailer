@@ -158,35 +158,35 @@ export async function POST(req: Request) {
         // --- RESUME VERIFICATION ---
         const resumePath = user.resumePath
 
-        if (!resumePath) {
-            console.error("DEBUG: Resume path missing for user", user.id)
-            throw new Error("Resume not found. Please upload a resume before sending.")
-        }
-
-        // Read the file (Optimized)
+        // Read the file (Optimized for Serverless)
         let resumeBuffer: Buffer;
-        try {
-            // FIX: Resolve the path relative to "public" if it looks like a web path
-            let finalPath = resumePath;
-            if (resumePath.startsWith("/uploads") || resumePath.startsWith("uploads")) {
-                // Remove leading slash if any
-                const cleanPath = resumePath.startsWith("/") ? resumePath.slice(1) : resumePath;
-                finalPath = path.join(process.cwd(), "public", cleanPath);
-            }
 
-            console.log("DEBUG: Reading resume from:", finalPath);
-            resumeBuffer = await fs.readFile(finalPath);
-        } catch (err) {
-            console.error("Primary Resume Read Error:", err);
-
-            // Fallback: Construct path manually for legacy uploads or different structures
-            const fallbackPath = path.join(process.cwd(), "uploads", session.user.id, "resume.pdf");
+        if (user.resumeData) {
+            console.log("DEBUG: Using resume from DB");
+            resumeBuffer = user.resumeData;
+        } else if (resumePath && resumePath !== "stored_in_db") {
             try {
-                resumeBuffer = await fs.readFile(fallbackPath);
-            } catch (fallbackErr) {
-                console.error("Fallback Resume Read Error:", fallbackErr);
-                throw new Error(`Could not read resume. Verified path: '${resumePath}'`);
+                // FIX: Resolve the path relative to "public" if it looks like a web path
+                let finalPath = resumePath;
+                if (resumePath.startsWith("/uploads") || resumePath.startsWith("uploads")) {
+                    const cleanPath = resumePath.startsWith("/") ? resumePath.slice(1) : resumePath;
+                    finalPath = path.join(process.cwd(), "public", cleanPath);
+                }
+
+                console.log("DEBUG: Reading resume from disk:", finalPath);
+                resumeBuffer = await fs.readFile(finalPath);
+            } catch (err) {
+                console.error("Disk Read Error:", err);
+                // Fallback legacy path
+                const fallbackPath = path.join(process.cwd(), "uploads", session.user.id, "resume.pdf");
+                try {
+                    resumeBuffer = await fs.readFile(fallbackPath);
+                } catch (fallbackErr) {
+                    throw new Error(`Could not read resume. Verified path: '${resumePath}'`);
+                }
             }
+        } else {
+            throw new Error("Resume content missing. Please re-upload your resume.");
         }
 
         let accessToken = account.access_token
