@@ -1,0 +1,22 @@
+Starting GLOBAL daily quota reset...
+Found 3 users.
+
+Processing User: test@example.com (ID: cmk7dy41g0000oqeukwri9hif)
+ - Current Limit: 20
+ - Used Today: 0
+ - No usage to reset.
+ - UPGRADED limit to 50.
+
+Processing User: jasonroycompany@gmail.com (ID: cmk7e2c1r0001oqeum9zh3c1u)
+ - Current Limit: 20
+ - Used Today: 30
+ - MOVED 30 logs to yesterday.
+ - UPGRADED limit to 50.
+
+Processing User: test_user_19700101053000@example.com (ID: cmk9bgl6a000012jn39z40tqg)
+ - Current Limit: 20
+ - Used Today: 0
+ - No usage to reset.
+ - UPGRADED limit to 50.
+
+GLOBAL RESET COMPLETE.

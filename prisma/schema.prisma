@@ -1,0 +1,218 @@
+generator client {
+  provider = "prisma-client-js"
+  // Forced update to ensure PostgreSQL is used
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+
+  resumePath    String?
+  resumeName    String?
+
+  contacts      Contact[]
+  campaigns     Campaign[]
+  logs          Log[]
+  sentEmails    SentEmail[]
+  templates     Template[]
+
+  // AutoMailer 2.0 Fields
+  isSetupComplete Boolean @default(false)
+  dailyLimit      Int     @default(50)
+  phoneNumber     String? // Kept for legacy, use Profile.mobile in future
+
+  profile         Profile?
+  smtpConfig      SmtpConfig?
+
+  // Workflow Status (Strict Locking)
+  templateStatus  String   @default("NOT_STARTED") // NOT_STARTED, GENERATING, GENERATED
+  resumeStatus    String   @default("NOT_UPLOADED") // NOT_UPLOADED, UPLOADED
+  communityStatus String   @default("NOT_SELECTED") // NOT_SELECTED, SELECTED_DB, SELECTED_CSV
+  lastWorkUpdate  DateTime @default(now())
+}
+
+model SmtpConfig {
+  id       String  @id @default(cuid())
+  userId   String  @unique
+  host     String
+  port     Int
+  user     String
+  pass     String
+  verified Boolean @default(false)
+  
+  userRel  User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Profile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  fullName        String
+  mobile          String
+  experienceLevel String   // Internship, Entry-Level, Fresher, Experienced
+  preferredField  String   // Android, Web, Backend, Data, Design, Other
+  skills          String?  // JSON or CSV string
+  bio             String?  // Brief bio for template personalization
+  portfolioUrl    String?
+  linkedinUrl     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  subject     String
+  body        String   // Supports variables like {{name}}
+  role        String   // HR, Recruiter, Founder, Custom
+  senderName  String?
+  senderPhone String? // Added for {{phone}} variable support
+  senderEmail String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userRel     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+
+
+model Contact {
+  id           String   @id @default(cuid())
+  userId       String
+  email        String
+  name         String?
+  company      String?
+  title        String?
+  role         String?  // Recruiter, HR, Founder, etc.
+  phone        String?  // Added for {{phone}} variable support
+  
+  // Verification & Enrichment
+  isVerified         Boolean  @default(false)
+  verificationStatus String   @default("pending") // pending, safe, risky, invalid
+  companyLogo        String?
+  industry           String?
+  status       String   @default("fresh") // fresh, sent, bounced, unsubscribed
+  bounceDescription String?
+  sourceUrl    String?  // URL where this contact was found
+  detectedRole String?  // Role detected during scraping
+  createdAt    DateTime @default(now())
+  lastContactedAt DateTime? // Track when we last emailed them
+
+  userRel      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, email])
+}
+
+model Campaign {
+  id           String   @id @default(cuid())
+  userId       String
+  name         String
+  status       String   @default("draft") // draft, running, paused, completed
+  stats        String?  // JSON string for quick stats
+  createdAt    DateTime @default(now())
+
+  userRel      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Log {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   // email_sent, error, limit_reached
+  message   String
+  timestamp DateTime @default(now())
+  
+  // New field to track the specific role/title applied for in this instance
+  appliedRole String?
+  metadata    String? // JSON string for additional details
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SentEmail {
+  id             String   @id @default(cuid())
+  userId         String
+  recipient      String
+  subject        String?
+  gmailMessageId String   @unique // The critical link for bounces
+  threadId       String?
+  status         String   @default("SENT") // SENT, BOUNCED, DELIVERED(optional)
+  bounceReason   String?
+  sentAt         DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([gmailMessageId])
+}
+
+model GlobalHrList {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  status    String   // safe, bounced, risky
+  domain    String
+  industry  String?
+  source    String   @default("system")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GlobalBounce {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  reason         String?
+  bounceCount    Int      @default(1)
+  isActive       Boolean  @default(true) // If true, blocks all future sends
+  firstBouncedAt DateTime @default(now())
+  lastBouncedAt  DateTime @default(now())
+  createdAt      DateTime @default(now())
+}

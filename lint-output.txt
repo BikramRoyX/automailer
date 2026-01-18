@@ -1,0 +1,553 @@
+
+> automailer@0.1.0 lint
+> eslint
+
+
+C:\Users\ebrne\AutoMailer\app\actions\agent.ts
+   99:13  error  'body' is never reassigned. Use 'const' instead     prefer-const
+  105:13  error  'subject' is never reassigned. Use 'const' instead  prefer-const
+  130:25  error  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+  188:21  error  Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\actions\profile.ts
+   8:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  56:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\actions\upload.ts
+   63:41  error    Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+   78:21  error    'rawEmail' is never reassigned. Use 'const' instead  prefer-const
+   93:25  warning  'skipped' is assigned a value but never used         @typescript-eslint/no-unused-vars
+  150:34  warning  'err' is defined but never used                      @typescript-eslint/no-unused-vars
+  174:31  error    Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  195:17  error    Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\agent\send\route.ts
+    8:10   warning  'resolveMx' is defined but never used                                                                                @typescript-eslint/no-unused-vars
+   14:18   error    Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+   90:25   error    Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+   91:47   error    Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  101:136  error    Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  109:18   warning  'e' is defined but never used                                                                                        @typescript-eslint/no-unused-vars
+  213:13   error    'senderEmail' is never reassigned. Use 'const' instead                                                               prefer-const
+  278:17   error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  319:21   error    Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+  344:26   warning  'e' is defined but never used                                                                                        @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\app\api\analytics\route.ts
+  146:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  154:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  199:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  207:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\auth\google\callback\route.ts
+  53:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\campaigns\preview\route.ts
+  23:49  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  62:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\app\api\campaigns\send\route.ts
+   14:34  warning  'subject' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   88:18  warning  'e' is defined but never used                 @typescript-eslint/no-unused-vars
+  158:27  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\cron\bounces\route.ts
+   7:27  warning  'req' is defined but never used           @typescript-eslint/no-unused-vars
+  40:21  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\debug\db-check\route.ts
+  26:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\profile\route.ts
+  6:27  warning  'req' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\app\api\register\route.ts
+  36:31  warning  '_' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  44:59  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\settings\gmail-status\route.ts
+   62:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   85:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  103:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\templates\route.ts
+  23:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\app\api\test-db\route.ts
+  22:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\uploads\csv\route.ts
+  26:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  32:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\api\workflow\status\route.ts
+   47:14  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+   80:29  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  101:17  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\dashboard\layout.tsx
+  17:18  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\app\dashboard\logs\page.tsx
+  6:28  warning  'TableCaption' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\app\dashboard\page.tsx
+   15:10  warning  'ProfileSetupForm' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   18:10  warning  'AnalyticsView' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   21:19  warning  'session' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   28:23  warning  'setIsRunning' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   29:52  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   30:50  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   81:30  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   91:38  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   99:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\ebrne\AutoMailer\app\dashboard\page.tsx:99:9
+   97 |
+   98 |     useEffect(() => {
+>  99 |         fetchStatus()
+      |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  100 |     }, [])
+  101 |
+  102 |     // Derived Status for Strict Locking  react-hooks/set-state-in-effect
+  100:8   warning  React Hook useEffect has a missing dependency: 'fetchStatus'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           react-hooks/exhaustive-deps
+  129:58  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  184:26  warning  'e' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\app\dashboard\profile\page.tsx
+   15:5   warning  'XCircle' is defined but never used                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   28:51  warning  'status' is assigned a value but never used                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+   29:48  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  104:55  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  142:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  241:65  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  241:70  warning  'idx' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  382:84  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\dashboard\settings\page.tsx
+    4:27   warning  'useRouter' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+    7:82   warning  'LogOut' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+    9:10   warning  'signOut' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   35:9    error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\ebrne\AutoMailer\app\dashboard\settings\page.tsx:35:9
+  33 |
+  34 |     useEffect(() => {
+> 35 |         checkStatus()
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  36 |         // Clean up URL params
+  37 |         if (error || success) {
+  38 |             const newUrl = window.location.pathname;  react-hooks/set-state-in-effect
+  156:54   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react/no-unescaped-entities
+  156:71   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react/no-unescaped-entities
+  205:60   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react/no-unescaped-entities
+  205:97   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react/no-unescaped-entities
+  205:102  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react/no-unescaped-entities
+
+C:\Users\ebrne\AutoMailer\app\dashboard\uploads\page.tsx
+  11:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\debug-db\page.tsx
+  7:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\login\page.tsx
+  18:19  warning  'session' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  66:18  warning  'err' is defined but never used               @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\app\onboarding\page.tsx
+   12:10   warning  'ChevronRight' is defined but never used                         @typescript-eslint/no-unused-vars
+   12:39   warning  'ChevronLeft' is defined but never used                          @typescript-eslint/no-unused-vars
+   51:11   warning  'handleNext' is assigned a value but never used                  @typescript-eslint/no-unused-vars
+   66:19   warning  'res' is assigned a value but never used                         @typescript-eslint/no-unused-vars
+  147:90   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  147:101  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  187:78   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  187:84   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\ebrne\AutoMailer\app\page.tsx
+   10:3   warning  'Mail' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   11:3   warning  'Users' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+   44:16  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\ebrne\AutoMailer\app\page.tsx:44:16
+  42 |           className="absolute bg-white rounded-full opacity-0"
+  43 |           initial={{
+> 44 |             x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+     |                ^^^^^^^^^^^^^ Cannot call impure function
+  45 |             y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+  46 |             scale: Math.random() * 0.5 + 0.5,
+  47 |             opacity: 0  react-hooks/purity
+   45:16  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\ebrne\AutoMailer\app\page.tsx:45:16
+  43 |           initial={{
+  44 |             x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+> 45 |             y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+     |                ^^^^^^^^^^^^^ Cannot call impure function
+  46 |             scale: Math.random() * 0.5 + 0.5,
+  47 |             opacity: 0
+  48 |           }}                                                    react-hooks/purity
+   46:20  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\ebrne\AutoMailer\app\page.tsx:46:20
+  44 |             x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+  45 |             y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+> 46 |             scale: Math.random() * 0.5 + 0.5,
+     |                    ^^^^^^^^^^^^^ Cannot call impure function
+  47 |             opacity: 0
+  48 |           }}
+  49 |           animate={{                                                react-hooks/purity
+   50:16  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\ebrne\AutoMailer\app\page.tsx:50:16
+  48 |           }}
+  49 |           animate={{
+> 50 |             x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+     |                ^^^^^^^^^^^^^ Cannot call impure function
+  51 |             y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+  52 |             opacity: [0, 0.5, 0],
+  53 |             scale: [0.5, 1, 0.5]                                                      react-hooks/purity
+   51:16  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\ebrne\AutoMailer\app\page.tsx:51:16
+  49 |           animate={{
+  50 |             x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+> 51 |             y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+     |                ^^^^^^^^^^^^^ Cannot call impure function
+  52 |             opacity: [0, 0.5, 0],
+  53 |             scale: [0.5, 1, 0.5]
+  54 |           }}                                                      react-hooks/purity
+   56:23  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\ebrne\AutoMailer\app\page.tsx:56:23
+  54 |           }}
+  55 |           transition={{
+> 56 |             duration: Math.random() * 10 + 10,
+     |                       ^^^^^^^^^^^^^ Cannot call impure function
+  57 |             repeat: Infinity,
+  58 |             ease: "easeInOut",
+  59 |             delay: Math.random() * 10                                                                                                                                                    react-hooks/purity
+   59:20  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\ebrne\AutoMailer\app\page.tsx:59:20
+  57 |             repeat: Infinity,
+  58 |             ease: "easeInOut",
+> 59 |             delay: Math.random() * 10
+     |                    ^^^^^^^^^^^^^ Cannot call impure function
+  60 |           }}
+  61 |           style={{
+  62 |             width: Math.random() * 3 + 2 + "px",                                                                                                                                                          react-hooks/purity
+   62:20  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\ebrne\AutoMailer\app\page.tsx:62:20
+  60 |           }}
+  61 |           style={{
+> 62 |             width: Math.random() * 3 + 2 + "px",
+     |                    ^^^^^^^^^^^^^ Cannot call impure function
+  63 |             height: Math.random() * 3 + 2 + "px",
+  64 |           }}
+  65 |         />                                                                                                                                                                                   react-hooks/purity
+   63:21  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\ebrne\AutoMailer\app\page.tsx:63:21
+  61 |           style={{
+  62 |             width: Math.random() * 3 + 2 + "px",
+> 63 |             height: Math.random() * 3 + 2 + "px",
+     |                     ^^^^^^^^^^^^^ Cannot call impure function
+  64 |           }}
+  65 |         />
+  66 |       ))}                                                                                                                                                                                     react-hooks/purity
+  432:25  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           react/no-unescaped-entities
+
+C:\Users\ebrne\AutoMailer\app\privacy\page.tsx
+   38:96  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  123:77  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  123:99  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\ebrne\AutoMailer\app\register\page.tsx
+  11:19  warning  'Mail' is defined but never used          @typescript-eslint/no-unused-vars
+  11:25  warning  'CheckCircle2' is defined but never used  @typescript-eslint/no-unused-vars
+  11:39  warning  'ArrowRight' is defined but never used    @typescript-eslint/no-unused-vars
+  41:23  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\app\terms\page.tsx
+  119:56  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  119:62  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\ebrne\AutoMailer\app\test-config\page.tsx
+  15:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\check_db.js
+  2:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Users\ebrne\AutoMailer\clear_resume.js
+  2:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Users\ebrne\AutoMailer\components\dashboard\agent-control-panel.tsx
+  55:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\ebrne\AutoMailer\components\dashboard\agent-control-panel.tsx:55:13
+  53 |             return () => clearInterval(interval)
+  54 |         } else if (isReady) {
+> 55 |             setLogs(["> System Ready.", "> Awaiting user input."])
+     |             ^^^^^^^ Avoid calling setState() directly within an effect
+  56 |         }
+  57 |     }, [isRunning, isReady])
+  58 |  react-hooks/set-state-in-effect
+
+C:\Users\ebrne\AutoMailer\components\dashboard\analytics-view.tsx
+   19:19  warning  'error' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   65:37  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  211:46  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  212:77  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  264:70  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\components\dashboard\profile-setup-form.tsx
+    8:44  warning  'CheckCircle2' is defined but never used                         @typescript-eslint/no-unused-vars
+    8:58  warning  'RotateCcw' is defined but never used                            @typescript-eslint/no-unused-vars
+    8:90  warning  'Monitor' is defined but never used                              @typescript-eslint/no-unused-vars
+    8:99  warning  'Layout' is defined but never used                               @typescript-eslint/no-unused-vars
+   13:10  warning  'Card' is defined but never used                                 @typescript-eslint/no-unused-vars
+   13:16  warning  'CardContent' is defined but never used                          @typescript-eslint/no-unused-vars
+   13:29  warning  'CardHeader' is defined but never used                           @typescript-eslint/no-unused-vars
+   13:41  warning  'CardTitle' is defined but never used                            @typescript-eslint/no-unused-vars
+   13:52  warning  'CardDescription' is defined but never used                      @typescript-eslint/no-unused-vars
+  170:42  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  182:43  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  257:32  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\ebrne\AutoMailer\components\dashboard\sending-flow.tsx
+    5:10   warning  'Rocket' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+    5:41   warning  'AlertTriangle' is defined but never used                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+    5:56   warning  'Building2' is defined but never used                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+    5:95   warning  'Mail' is defined but never used                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+    5:107  warning  'Check' is defined but never used                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+    5:114  warning  'AlertCircle' is defined but never used                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+    5:127  warning  'RefreshCw' is defined but never used                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   21:17   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   39:15   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   40:15   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   54:12   warning  'errorMessage' is assigned a value but never used                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   78:8    warning  React Hook useEffect has a missing dependency: 'contacts'. Either include it or remove the dependency array                                                                                                                                                                              react-hooks/exhaustive-deps
+   89:8    warning  React Hook useEffect has missing dependencies: 'contacts', 'onComplete', 'processContact', and 'stats'. Either include them or remove the dependency array. If 'onComplete' changes too often, find the parent component that defines it and wrap that definition in useCallback         react-hooks/exhaustive-deps
+   91:44   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  158:25   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\components\dashboard\setup-guide.tsx
+    7:24  warning  'FileJson' is defined but never used                             @typescript-eslint/no-unused-vars
+    7:68  warning  'LinkIcon' is defined but never used                             @typescript-eslint/no-unused-vars
+  284:47  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\ebrne\AutoMailer\components\dashboard\status-stepper.tsx
+  3:28  warning  'Loader2' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\components\dashboard\swipeable-templates.tsx
+   5:10  warning  'Card' is defined but never used                                                                             @typescript-eslint/no-unused-vars
+   5:16  warning  'CardContent' is defined but never used                                                                      @typescript-eslint/no-unused-vars
+   5:29  warning  'CardFooter' is defined but never used                                                                       @typescript-eslint/no-unused-vars
+   5:41  warning  'CardHeader' is defined but never used                                                                       @typescript-eslint/no-unused-vars
+   8:37  warning  'Edit2' is defined but never used                                                                            @typescript-eslint/no-unused-vars
+   8:44  warning  'Check' is defined but never used                                                                            @typescript-eslint/no-unused-vars
+  15:11  error    Unexpected any. Specify a different type                                                                     @typescript-eslint/no-explicit-any
+  56:8   warning  'Link' is defined but never used                                                                             @typescript-eslint/no-unused-vars
+  84:8   warning  React Hook useEffect has a missing dependency: 'paginate'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  88:21  error    Unexpected any. Specify a different type                                                                     @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\components\dashboard\template-builder.tsx
+    5:16  warning  'CardContent' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   13:15  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   14:22  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   15:14  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   57:79  warning  'isLocked' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   72:13  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\ebrne\AutoMailer\components\dashboard\template-builder.tsx:72:13
+  70 |     useEffect(() => {
+  71 |         if (profile) {
+> 72 |             setFormData(prev => ({
+     |             ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  73 |                 name: prev.name || profile.fullName || "",
+  74 |                 phone: prev.phone || profile.mobile || "",
+  75 |                 level: prev.level || profile.experienceLevel || "",  react-hooks/set-state-in-effect
+   81:62  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+   82:56  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  101:38  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+  142:78  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     react/no-unescaped-entities
+  290:88  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     react/no-unescaped-entities
+  290:92  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     react/no-unescaped-entities
+
+C:\Users\ebrne\AutoMailer\components\dashboard\workflow-tabs.tsx
+  4:40  warning  'BarChart3' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\components\file-upload.tsx
+  69:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\components\navbar.tsx
+    9:5   warning  'Send' is defined but never used                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  102:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\ebrne\AutoMailer\components\sign-out-button.tsx
+  5:10  warning  'Button' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\components\ui\input.tsx
+  4:18  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+C:\Users\ebrne\AutoMailer\lib\agent\policy.ts
+  6:13  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\lib\auth-service.ts
+  40:45  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  56:65  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  56:82  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  57:25  warning  'picture' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  57:34  warning  'name' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  67:23  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\lib\auth.ts
+    1:8   warning  'NextAuth' is defined but never used      @typescript-eslint/no-unused-vars
+    5:10  warning  'z' is defined but never used             @typescript-eslint/no-unused-vars
+   14:42  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  105:39  warning  'profile' is defined but never used       @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\lib\bounce-scanner.ts
+  60:19  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  77:27  warning  'snippet' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  80:41  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\lib\browser\extractor.ts
+  16:15  warning  'content' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\lib\email-validator.ts
+  97:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\lib\gmail.ts
+  61:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\lib\hr-verification.ts
+  58:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\lib\safe-agent.ts
+  78:123  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\lib\template-engine.ts
+  3:16  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\scripts\debug-analytics.ts
+  18:9   error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+  47:17  error  Unexpected any. Specify a different type                                                                             @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\scripts\test-db.mjs
+  5:7  warning  'prisma' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\scripts\verify-dedup.ts
+  1:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Users\ebrne\AutoMailer\tests\integration\test-bounce-flow.ts
+  11:27  error  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  12:27  error  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  13:27  error  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  16:31  error  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  19:30  error  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  30:27  error  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  33:27  error  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  35:29  error  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  45:49  error  Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  51:9   error  'originalMsgId' is never reassigned. Use 'const' instead  prefer-const
+
+C:\Users\ebrne\AutoMailer\tests\integration\test-db-consistency.ts
+  36:37  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  42:14  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  48:35  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  51:15  warning  'op1' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  52:15  warning  'op2' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  61:14  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\tests\integration\test-e2e-loop.ts
+  26:16  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  49:47  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  53:51  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  68:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  80:47  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  91:46  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  95:49  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\tests\integration\test-failure-modes.ts
+  38:27  error    Unexpected any. Specify a different type         @typescript-eslint/no-explicit-any
+  44:20  warning  'ops' is defined but never used                  @typescript-eslint/no-unused-vars
+  44:25  error    Unexpected any. Specify a different type         @typescript-eslint/no-explicit-any
+  71:9   warning  'sentResult' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  72:14  warning  'e' is defined but never used                    @typescript-eslint/no-unused-vars
+  79:14  warning  'e' is defined but never used                    @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\tests\integration\test-frontend-data.ts
+  22:5  error  'mockDbState' is never reassigned. Use 'const' instead  prefer-const
+
+C:\Users\ebrne\AutoMailer\tests\integration\test-multi-account.ts
+  23:27  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:18  warning  'opts' is defined but never used          @typescript-eslint/no-unused-vars
+  33:24  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  36:24  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  54:20  warning  'ops' is defined but never used           @typescript-eslint/no-unused-vars
+  54:25  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\tests\integration\test-performance.ts
+  38:30  warning  'idx' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\tests\integration\test-security.ts
+  23:26  error    Unexpected any. Specify a different type         @typescript-eslint/no-explicit-any
+  34:45  error    Unexpected any. Specify a different type         @typescript-eslint/no-explicit-any
+  34:50  warning  'requestedResourceId' is defined but never used  @typescript-eslint/no-unused-vars
+  67:32  error    Unexpected any. Specify a different type         @typescript-eslint/no-explicit-any
+
+C:\Users\ebrne\AutoMailer\tests\unit\test-bounce-regex.ts
+  26:9  error    'originalMsgId' is never reassigned. Use 'const' instead  prefer-const
+  96:7  warning  'res4' is assigned a value but never used                 @typescript-eslint/no-unused-vars
+
+C:\Users\ebrne\AutoMailer\tests\unit\test-gmail-send.ts
+  5:10  warning  'sendEmail' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 248 problems (148 errors, 100 warnings)
+  7 errors and 0 warnings potentially fixable with the `--fix` option.
+

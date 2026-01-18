@@ -1,0 +1,8 @@
+≡ƒöì Checking Google Account Status...
+
+Γ£à Google Account Found
+- Connection ID: cmkfchcvv03o7d1f5hg1f8134
+- Expires At: 15/1/2026, 11:43:13 pm
+- Expires In: -1 minutes
+ΓÜá∩╕Å TOKEN EXPIRED - Refresh should happen automatically on send.
+Γ£à Refresh Token is present.

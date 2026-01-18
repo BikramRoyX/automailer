@@ -1,0 +1,192 @@
+
+> apply-flow@0.1.0 build
+> next build
+
+ΓÜá Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\ebrne\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\ebrne\AutoMailer\package-lock.json
+
+Γû▓ Next.js 16.1.1 (Turbopack)
+- Environments: .env
+
+ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 7 errors:
+./AutoMailer/components/dashboard/profile-setup-form.tsx:6:1
+Module not found: Can't resolve '@hookform/resolvers/zod'
+  4 | import { motion, AnimatePresence } from "framer-motion"
+  5 | import { useForm } from "react-hook-form"
+> 6 | import { zodResolver } from "@hookform/resolvers/zod"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import * as z from "zod"
+  8 | import { Loader2, AlertCircle, ArrowRight, CheckCircle2 } from "lucide-react"
+  9 | import { Button } from "@/components/ui/button"
+
+
+
+Import traces:
+  Client Component Browser:
+    ./AutoMailer/components/dashboard/profile-setup-form.tsx [Client Component Browser]
+    ./AutoMailer/app/dashboard/page.tsx [Client Component Browser]
+    ./AutoMailer/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./AutoMailer/components/dashboard/profile-setup-form.tsx [Client Component SSR]
+    ./AutoMailer/app/dashboard/page.tsx [Client Component SSR]
+    ./AutoMailer/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./AutoMailer/app/api/campaigns/send/route.ts:6:1
+Module not found: Can't resolve 'nodemailer'
+  4 | import { db } from "@/lib/db";
+  5 | import { decrypt } from "@/lib/encryption";
+> 6 | import nodemailer from "nodemailer";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { readFile } from "fs/promises";
+  8 |
+  9 | export async function POST(req: Request) {
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./AutoMailer/components/dashboard/profile-setup-form.tsx:5:1
+Module not found: Can't resolve 'react-hook-form'
+  3 | import { useState } from "react"
+  4 | import { motion, AnimatePresence } from "framer-motion"
+> 5 | import { useForm } from "react-hook-form"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import { zodResolver } from "@hookform/resolvers/zod"
+  7 | import * as z from "zod"
+  8 | import { Loader2, AlertCircle, ArrowRight, CheckCircle2 } from "lucide-react"
+
+
+
+Import traces:
+  Client Component Browser:
+    ./AutoMailer/components/dashboard/profile-setup-form.tsx [Client Component Browser]
+    ./AutoMailer/app/dashboard/page.tsx [Client Component Browser]
+    ./AutoMailer/app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./AutoMailer/components/dashboard/profile-setup-form.tsx [Client Component SSR]
+    ./AutoMailer/app/dashboard/page.tsx [Client Component SSR]
+    ./AutoMailer/app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./AutoMailer/app/onboarding/page.tsx:14:1
+Export uploadHrList doesn't exist in target module
+  12 | import { ChevronRight, Upload, Check, ChevronLeft, Mail, FileText, User, ShieldCheck } from "lucide-react"
+  13 | import { completeOnboarding } from "@/app/actions/onboarding"
+> 14 | import { uploadResume, uploadHrList } from "@/app/actions/upload"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  15 |
+  16 | type OnboardingData = {
+  17 |     name: string
+
+The export uploadHrList was not found in module [project]/AutoMailer/app/actions/upload.ts [app-client] (ecmascript).
+Did you mean to import uploadFile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./AutoMailer/app/onboarding/page.tsx [Client Component Browser]
+    ./AutoMailer/app/onboarding/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./AutoMailer/app/onboarding/page.tsx [Client Component SSR]
+    ./AutoMailer/app/onboarding/page.tsx [Server Component]
+
+
+./AutoMailer/app/onboarding/page.tsx:14:1
+Export uploadHrList doesn't exist in target module
+  12 | import { ChevronRight, Upload, Check, ChevronLeft, Mail, FileText, User, ShieldCheck } from "lucide-react"
+  13 | import { completeOnboarding } from "@/app/actions/onboarding"
+> 14 | import { uploadResume, uploadHrList } from "@/app/actions/upload"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  15 |
+  16 | type OnboardingData = {
+  17 |     name: string
+
+The export uploadHrList was not found in module [project]/AutoMailer/app/actions/upload.ts [app-ssr] (ecmascript).
+Did you mean to import uploadFile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./AutoMailer/app/onboarding/page.tsx [Client Component Browser]
+    ./AutoMailer/app/onboarding/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./AutoMailer/app/onboarding/page.tsx [Client Component SSR]
+    ./AutoMailer/app/onboarding/page.tsx [Server Component]
+
+
+./AutoMailer/app/onboarding/page.tsx:14:1
+Export uploadResume doesn't exist in target module
+  12 | import { ChevronRight, Upload, Check, ChevronLeft, Mail, FileText, User, ShieldCheck } from "lucide-react"
+  13 | import { completeOnboarding } from "@/app/actions/onboarding"
+> 14 | import { uploadResume, uploadHrList } from "@/app/actions/upload"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  15 |
+  16 | type OnboardingData = {
+  17 |     name: string
+
+The export uploadResume was not found in module [project]/AutoMailer/app/actions/upload.ts [app-client] (ecmascript).
+Did you mean to import uploadFile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./AutoMailer/app/onboarding/page.tsx [Client Component Browser]
+    ./AutoMailer/app/onboarding/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./AutoMailer/app/onboarding/page.tsx [Client Component SSR]
+    ./AutoMailer/app/onboarding/page.tsx [Server Component]
+
+
+./AutoMailer/app/onboarding/page.tsx:14:1
+Export uploadResume doesn't exist in target module
+  12 | import { ChevronRight, Upload, Check, ChevronLeft, Mail, FileText, User, ShieldCheck } from "lucide-react"
+  13 | import { completeOnboarding } from "@/app/actions/onboarding"
+> 14 | import { uploadResume, uploadHrList } from "@/app/actions/upload"
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  15 |
+  16 | type OnboardingData = {
+  17 |     name: string
+
+The export uploadResume was not found in module [project]/AutoMailer/app/actions/upload.ts [app-ssr] (ecmascript).
+Did you mean to import uploadFile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./AutoMailer/app/onboarding/page.tsx [Client Component Browser]
+    ./AutoMailer/app/onboarding/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./AutoMailer/app/onboarding/page.tsx [Client Component SSR]
+    ./AutoMailer/app/onboarding/page.tsx [Server Component]
+
+
+    at <unknown> (./AutoMailer/components/dashboard/profile-setup-form.tsx:6:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./AutoMailer/app/api/campaigns/send/route.ts:6:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./AutoMailer/components/dashboard/profile-setup-form.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./AutoMailer/app/onboarding/page.tsx:14:1)
+    at <unknown> (./AutoMailer/app/onboarding/page.tsx:14:1)
+    at <unknown> (./AutoMailer/app/onboarding/page.tsx:14:1)
+    at <unknown> (./AutoMailer/app/onboarding/page.tsx:14:1)

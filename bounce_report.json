@@ -1,0 +1,116 @@
+Checking bounces for ACTIVE USER: jasonroycompany@gmail.com (cmk7e2c1r0001oqeum9zh3c1u) since 1:50:37 am...
+Found 20 recent bounces:
+[
+  {
+    "email": "amlan.nag@mjunction.in",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "amitha.k@secure-24.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "ashital@svam.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "amit.sahoo@areteanstech.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "amit.ranjan@scikey.ai",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "amit.prayagi@claimgenius.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "amit@hanu.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "amit.malhotra@wundermanthompson.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "amiit.avaasthi@altudo.co",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "ambrish.kanungo@beyondkey.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "amar.sinha@nitorinfotech.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "amandeep.k@antiersolutions.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "aman.khan@areteanstech.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "alwyn.barretto@infrasofttech.",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "alok.singh@recro.io",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "allwyn.r@qbrainx.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "albino@pixis.ai",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "akshata.bhandare@windmill.ch",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "akriti@elsner.in",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  },
+  {
+    "email": "akram.mohammad@colruytgroup.com",
+    "bounceDescription": "Could not read resume file from disk.",
+    "verificationStatus": "pending"
+  }
+]
+
+Recent System Errors:
+[
+  {
+    message: 'Failed sending to akhila@estuate.com: request to https://gmail.googleapis.com/gmail/v1/users/me/messages/send failed, reason: read ECONNRESET',
+    timestamp: 2026-01-11T19:31:09.021Z
+  },
+  {
+    message: 'Failed sending to aarasina@teksystems.com: Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.',
+    timestamp: 2026-01-11T18:40:08.291Z
+  }
+]

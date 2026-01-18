@@ -1,0 +1,14 @@
+User: test@example.com
+Resume: NOT_UPLOADED
+Community: NOT_SELECTED
+Template: NOT_STARTED
+---
+User: jasonroycompany@gmail.com
+Resume: NOT_UPLOADED
+Community: NOT_SELECTED
+Template: NOT_STARTED
+---
+User: test_user_19700101053000@example.com
+Resume: NOT_UPLOADED
+Community: NOT_SELECTED
+Template: NOT_STARTED

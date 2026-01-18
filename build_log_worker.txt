@@ -1,0 +1,31 @@
+
+> apply-flow@0.1.0 build
+> next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\ebrne\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\ebrne\AutoMailer\package-lock.json
+
+▲ Next.js 16.1.1 (Turbopack)
+- Environments: .env
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 13.6s
+  Running TypeScript ...
+Failed to compile.
+
+./app/api/agent/status/route.ts:45:44
+Type error: Property 'templates' does not exist on type '{ contacts: number; }'.
+
+[0m [90m 43 |[39m
+ [90m 44 |[39m         [90m// 2. Counts[39m
+[31m[1m>[22m[39m[90m 45 |[39m         [36mconst[39m template_count [33m=[39m user[33m.[39m_count[33m.[39mtemplates
+ [90m    |[39m                                            [31m[1m^[22m[39m
+ [90m 46 |[39m         [36mconst[39m contact_count [33m=[39m user[33m.[39m_count[33m.[39mcontacts
+ [90m 47 |[39m
+ [90m 48 |[39m         [90m// 3. Fresh Contacts (ready to send)[39m[0m
+Next.js build worker exited with code: 1 and signal: null
