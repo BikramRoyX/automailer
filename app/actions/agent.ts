@@ -191,11 +191,23 @@ export async function runAutoAgent() {
 
         return { success: true, message: `Sent to ${contact.email}`, sent: 1 }
 
+
     } catch (error: any) {
         console.error(`Failed to send to ${contact.email}`, error)
 
         // Log Failure
-        await SafeAgent.logAction(user.id, "error", `Failed sending to ${contact.email}: ${error.message}`)
+        try {
+            await db.log.create({
+                data: {
+                    userId: user.id,
+                    type: "error",
+                    message: `Failed sending to ${contact.email}: ${error.message}`,
+                    timestamp: new Date()
+                }
+            })
+        } catch (logErr) {
+            console.error("Failed to log error to DB", logErr)
+        }
 
         await db.contact.update({
             where: { id: contact.id },

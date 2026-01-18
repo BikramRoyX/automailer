@@ -47,13 +47,15 @@ export async function copySystemContacts() {
                     notIn: Array.from(excludedEmails)
                 }
             },
-            take: 1000 // Increased fetch limit
+            take: 100 // Fetch explicit buffer to ensure we get 50 after any filtering
         })
 
-        if (globalContacts.length === 0) {
-            console.log("Fallback Seeding: No fresh contacts found. Generating new batch...");
+        // Fallback: If DB is empty or exhausted
+        if (globalContacts.length < 50) {
+            console.log("Fallback Seeding: Insufficient contacts found. Generating/Refilling...");
             const batchId = Date.now();
-            // Generate smaller batch (50) to prevent timeout
+            // Generate exactly what we need or a small batch
+            const needed = 50 - globalContacts.length;
             const dummyContacts = Array.from({ length: 50 }).map((_, i) => ({
                 email: `hr.hire.${batchId}.${i}@gmail.com`,
                 domain: "gmail.com",
@@ -65,27 +67,24 @@ export async function copySystemContacts() {
                 data: dummyContacts
             });
 
-            // Re-fetch (Fetch ALL available new ones)
+            // Re-fetch to top up
             const newContacts = await db.globalHrList.findMany({
                 where: {
                     status: "safe",
                     email: {
-                        notIn: Array.from(excludedEmails) // Should be fine since these are brand new
+                        notIn: Array.from(excludedEmails)
                     }
                 },
-                take: 50, // Fetch the whole batch we just made
+                take: 100,
                 orderBy: { id: 'desc' }
             });
 
-            if (newContacts.length === 0) {
-                return { success: false, message: "No new valid contacts availble even after refresh." }
-            }
-            // Use the new batch
-            globalContacts.push(...newContacts);
+            // Merge
+            globalContacts = [...globalContacts, ...newContacts];
         }
 
         // Optimize: Convert to Bulk Insert
-        const contactsToInsert = globalContacts
+        let contactsToInsert = globalContacts
             .filter(gc => !excludedEmails.has(gc.email.toLowerCase()))
             .map(gc => ({
                 userId,
@@ -95,6 +94,9 @@ export async function copySystemContacts() {
                 sourceUrl: "System Database",
                 company: gc.domain ? gc.domain.split('.')[0] : "Tech Company"
             }));
+
+        // STRICT LIMIT: Ensure exactly 50 (or less if not enough)
+        contactsToInsert = contactsToInsert.slice(0, 50);
 
         if (contactsToInsert.length > 0) {
             await db.contact.createMany({
