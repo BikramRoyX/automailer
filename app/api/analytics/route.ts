@@ -54,8 +54,13 @@ export async function GET(request: Request) {
                     // and we want to show total "waste" or bad data found.
                 }
             }),
-            // Replies (Placeholder: 0 unless we have webhooks)
-            0,
+            // Replies (Count contacts marked as 'replied')
+            prisma.contact.count({
+                where: {
+                    userId: user.id,
+                    status: "replied"
+                }
+            }),
             // Valid HR List (Current State)
             prisma.contact.count({
                 where: {

@@ -53,7 +53,8 @@ export async function copySystemContacts() {
         if (globalContacts.length === 0) {
             console.log("Fallback Seeding: No fresh contacts found. Generating new batch...");
             const batchId = Date.now();
-            const dummyContacts = Array.from({ length: 500 }).map((_, i) => ({
+            // Generate smaller batch (50) to prevent timeout
+            const dummyContacts = Array.from({ length: 50 }).map((_, i) => ({
                 email: `hr.hire.${batchId}.${i}@gmail.com`,
                 domain: "gmail.com",
                 status: "safe",
@@ -72,7 +73,7 @@ export async function copySystemContacts() {
                         notIn: Array.from(excludedEmails) // Should be fine since these are brand new
                     }
                 },
-                take: 500, // Fetch the whole batch we just made
+                take: 50, // Fetch the whole batch we just made
                 orderBy: { id: 'desc' }
             });
 
@@ -129,8 +130,8 @@ export async function copySystemContacts() {
 
         return { success: true, message: `Added ${addedCount} contacts from Community Database.` }
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error keying system contacts:", error)
-        return { success: false, message: "Failed to copy contacts" }
+        return { success: false, message: `Failed to copy contacts: ${error.message || "Unknown error"}` }
     }
 }

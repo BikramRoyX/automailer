@@ -294,10 +294,16 @@ export async function POST(req: Request) {
 
             await db.$transaction([
                 // 6a. Main Log
-                db.$executeRaw`
-                    INSERT INTO Log (id, userId, type, message, appliedRole, timestamp)
-                    VALUES (${logId}, ${session.user.id}, 'email_sent', ${`Sent to ${contact.email}`}, ${userTitle}, ${logTimestamp})
-                `,
+                db.log.create({
+                    data: {
+                        id: logId,
+                        userId: session.user.id,
+                        type: 'email_sent',
+                        message: `Sent to ${contact.email}`,
+                        appliedRole: userTitle,
+                        timestamp: logTimestamp
+                    }
+                }),
                 // 6b. Bounce Tracking Record
                 db.sentEmail.create({
                     data: {
