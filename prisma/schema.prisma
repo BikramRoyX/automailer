@@ -23,6 +23,7 @@ model User {
 
   resumePath    String?
   resumeName    String?
+  resumeData    Bytes? // Store resume file directly in DB for serverless support
 
   contacts      Contact[]
   campaigns     Campaign[]

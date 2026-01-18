@@ -1,8 +1,5 @@
 "use server"
 
-import { writeFile, mkdir } from "fs/promises"
-import { join } from "path"
-import { cwd } from "process"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
@@ -25,31 +22,18 @@ export async function uploadFile(formData: FormData) {
         const bytes = await file.arrayBuffer()
         const buffer = Buffer.from(bytes)
 
-        // Ensure upload directory exists
-        const uploadDir = join(cwd(), "public", "uploads")
-        await mkdir(uploadDir, { recursive: true })
-
-        // Create a unique filename
-        const filename = `${type}_${Date.now()}_${file.name.replace(/\s/g, '_')}`
-        const path = join(uploadDir, filename)
-        const relativePath = `/uploads/${filename}`
-
-        await writeFile(path, buffer)
-        console.log(`Saved ${type} to ${path}`)
-
         // Update DB based on type
         if (type === 'resume') {
             await db.user.update({
                 where: { email: session.user.email },
                 data: {
-                    resumePath: relativePath,
+                    resumeData: buffer, // Store file directly in DB
+                    resumePath: "stored_in_db", // Placeholder
                     resumeName: file.name,
-                    resumeStatus: 'UPLOADED' // Fix: Explicitly update status
+                    resumeStatus: 'UPLOADED'
                 }
             })
-            // Check if we can mark setup as complete? Need contacts too.
-            // We'll leave isSetupComplete for now, or check if contacts exist.
-            return { success: true, message: "Resume uploaded successfully!", filename }
+            return { success: true, message: "Resume uploaded successfully!", filename: file.name }
         }
 
         if (type === 'csv') {
@@ -184,7 +168,6 @@ export async function uploadFile(formData: FormData) {
             return {
                 success: true,
                 message: `Contacts uploaded! Processed ${count} entries.`,
-                filename,
                 count,
                 systemAddedCount // Return this for frontend notification
             }

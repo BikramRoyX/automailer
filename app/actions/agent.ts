@@ -4,8 +4,6 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { sendEmail } from "@/lib/gmail"
-import { readFile } from "fs/promises"
-import { join } from "path"
 import { SafeAgent } from "@/lib/safe-agent"
 
 export async function runAutoAgent() {
@@ -45,12 +43,20 @@ export async function runAutoAgent() {
 
     // 2. Fetch Resume
     let resumeBuffer: Buffer | null = null
-    if (user.resumePath) {
+
+    // Prefer DB storage (Serverless compatible)
+    if (user.resumeData) {
+        resumeBuffer = user.resumeData
+    }
+    // Legacy generic FS fallback (Development only)
+    else if (user.resumePath && user.resumePath !== "stored_in_db") {
         try {
+            const { readFile } = await import("fs/promises") // Dynamic import to avoid build errors on Edge if we move there
+            const { join } = await import("path")
             const filePath = join(process.cwd(), "public", user.resumePath)
             resumeBuffer = await readFile(filePath)
         } catch (e) {
-            console.error("Resume load failed", e)
+            console.error("Resume load failed from disk", e)
         }
     }
 
