@@ -15,8 +15,8 @@ export async function GET(req: Request) {
         // Default to 20 if not specified, otherwise parseint
         let take = limitParam ? parseInt(limitParam) : 20
 
-        // Safety cap (e.g. max 50 at a time)
-        if (take > 50) take = 50
+        // Safety cap (Increased to 1000 for bulk sending)
+        if (take > 1000) take = 1000
         if (take < 1) take = 1
 
         const contacts = await db.contact.findMany({

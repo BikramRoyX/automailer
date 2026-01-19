@@ -1,0 +1,17 @@
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Error: Prisma schema validation - (get-dmmf wasm)
+Error code: P1012
+error: Error validating field `user` in model `Notification`: The relation field `user` on model `Notification` is missing an opposite relation field on the model `User`. Either run `prisma format` or add it manually.
+  -->  prisma\schema.prisma:230
+   | 
+229 | 
+230 |   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+231 | }
+   | 
+
+Validation Error Count: 1
+[Context: getDmmf]
+
+Prisma CLI Version : 5.22.0

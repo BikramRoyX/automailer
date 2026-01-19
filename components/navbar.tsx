@@ -16,7 +16,7 @@ import {
     User,
     BarChart3
 } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { signOut } from "next-auth/react"
@@ -42,6 +42,30 @@ export function Navbar() {
     const pathname = usePathname()
     const { data: session } = useSession()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [notifications, setNotifications] = useState<any[]>([])
+    const [isLoading, setIsLoading] = useState(false)
+
+    // Fetch notifications
+    const fetchNotifications = async () => {
+        if (!session?.user) return
+        try {
+            setIsLoading(true)
+            const res = await fetch("/api/notifications")
+            if (res.ok) {
+                const data = await res.json()
+                setNotifications(data)
+            }
+        } catch (e) {
+            console.error(e)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    // Initial Fetch
+    useEffect(() => {
+        fetchNotifications()
+    }, [session])
 
     return (
         <>
@@ -88,9 +112,78 @@ export function Navbar() {
 
                     {/* Right Side Actions */}
                     <div className="hidden md:flex items-center gap-4">
-                        <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-white/5 rounded-full w-10 h-10">
-                            <Bell className="w-5 h-5" />
-                        </Button>
+                        {/* Notification Dropdown */}
+                        <DropdownMenu onOpenChange={(open) => {
+                            if (open) fetchNotifications()
+                        }}>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-white/5 rounded-full w-10 h-10 relative">
+                                    <Bell className="w-5 h-5" />
+                                    {notifications.length > 0 && !notifications.some((n: any) => n.isRead) && (
+                                        <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border border-[#0a0a0a]" />
+                                    )}
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-80 bg-[#0a0a0a] border border-white/10 text-zinc-400 p-0 overflow-hidden shadow-2xl">
+                                <div className="p-4 border-b border-white/5 bg-white/[0.02] flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <h4 className="font-semibold text-white">Notifications</h4>
+                                        {notifications.length > 0 && (
+                                            <span className="bg-indigo-500/10 text-indigo-400 text-[10px] px-2 py-0.5 rounded-full border border-indigo-500/20">
+                                                {notifications.length} New
+                                            </span>
+                                        )}
+                                    </div>
+                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={fetchNotifications} disabled={isLoading}>
+                                        <div className={cn("w-3 h-3 rounded-full border-2 border-zinc-600 border-t-zinc-400", isLoading && "animate-spin")} />
+                                    </Button>
+                                </div>
+
+                                <div className="max-h-[300px] overflow-y-auto">
+                                    {notifications.length === 0 ? (
+                                        <div className="min-h-[200px] flex flex-col items-center justify-center p-8 text-center space-y-4">
+                                            <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center">
+                                                <Bell className="w-8 h-8 text-zinc-600 opacity-50" />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <p className="text-white font-medium">No notifications</p>
+                                                <p className="text-xs text-zinc-500 max-w-[180px] mx-auto leading-relaxed">
+                                                    We'll notify you when your campaign starts or when you get a reply.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="divide-y divide-white/5">
+                                            {notifications.map((n, i) => (
+                                                <div key={i} className={cn("p-4 hover:bg-white/5 transition-colors cursor-pointer", !n.isRead && "bg-white/[0.02]")}>
+                                                    <div className="flex items-start gap-3">
+                                                        <div className={cn(
+                                                            "w-2 h-2 mt-2 rounded-full flex-shrink-0",
+                                                            n.type === 'success' ? "bg-green-500" :
+                                                                n.type === 'error' ? "bg-red-500" :
+                                                                    n.type === 'warning' ? "bg-yellow-500" : "bg-indigo-500"
+                                                        )} />
+                                                        <div className="flex-1 space-y-1">
+                                                            <p className="text-sm font-medium text-white leading-none">{n.title}</p>
+                                                            <p className="text-xs text-zinc-400 leading-relaxed">{n.message}</p>
+                                                            <p className="text-[10px] text-zinc-600">{new Date(n.createdAt).toLocaleDateString()}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+
+                                {notifications.length > 0 && (
+                                    <div className="p-2 border-t border-white/5 bg-white/[0.02]">
+                                        <Button variant="ghost" size="sm" className="w-full text-xs text-zinc-500 hover:text-white h-8">
+                                            Mark all as read
+                                        </Button>
+                                    </div>
+                                )}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
 
                         {/* Profile Dropdown */}
                         <DropdownMenu>

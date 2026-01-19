@@ -94,12 +94,12 @@ export function SendingFlow({ contacts, template, onComplete, onStop }: SendingF
             setStatus("analyzing")
             setErrorMessage(null) // Reset error
             addLog(`Acquiring Target: ${contact.company || "Company"}...`)
-            await wait(150) // Faster (was 400)
+            await wait(20) // Snappy (was 150)
 
             // Step 2: Match Role
             setStatus("matching")
             addLog(`Role Matrix: ${contact.role || "Hiring Manager"}`)
-            await wait(150) // Faster (was 400)
+            await wait(20) // Snappy (was 150)
 
             // Step 3: Verify Email
             setStatus("verifying")

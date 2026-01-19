@@ -177,7 +177,7 @@ function LoginContent() {
 
                 <div className="mt-auto pt-10">
                     <p className="text-xs text-gray-600 text-center">
-                        Protected by reCAPTCHA and subject to the Google <Link href="#" className="hover:text-gray-400 underline">Privacy Policy</Link> and <Link href="#" className="hover:text-gray-400 underline">Terms of Service</Link>.
+                        Protected by reCAPTCHA and subject to the Google <Link href="/privacy" className="hover:text-gray-400 underline">Privacy Policy</Link> and <Link href="/terms" className="hover:text-gray-400 underline">Terms of Service</Link>.
                     </p>
                 </div>
             </div>

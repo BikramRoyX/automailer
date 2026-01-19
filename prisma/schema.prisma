@@ -35,7 +35,8 @@ model User {
   isSetupComplete Boolean @default(false)
   dailyLimit      Int     @default(50)
   phoneNumber     String? // Kept for legacy, use Profile.mobile in future
-
+  
+  notifications   Notification[]
   profile         Profile?
   smtpConfig      SmtpConfig?
 
@@ -216,4 +217,25 @@ model GlobalBounce {
   firstBouncedAt DateTime @default(now())
   lastBouncedAt  DateTime @default(now())
   createdAt      DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String   // info, success, warning, error
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Broadcast {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  type      String   // system, community
+  createdAt DateTime @default(now())
+  expiresAt DateTime?
 }

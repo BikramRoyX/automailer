@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
-import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Loader2, CheckCircle2, XCircle, ShieldCheck, Mail, AlertCircle, Trash2, LogOut } from "lucide-react"
@@ -48,17 +47,12 @@ export default function SettingsPage() {
 
     const handleDisconnect = async () => {
         if (!confirm("Are you sure you want to disconnect Gmail sending?")) return;
-        const toastId = toast.loading("Disconnecting account...");
         setLoading(true);
         try {
-            const res = await fetch("/api/settings/gmail-disconnect", { method: "DELETE" });
-            if (!res.ok) throw new Error("Failed");
-
-            await checkStatus(); // Refresh status
-            toast.success("Gmail disconnected successfully", { id: toastId });
+            await fetch("/api/settings/gmail-disconnect", { method: "DELETE" });
+            checkStatus(); // Refresh status
         } catch (e) {
             console.error("Disconnect failed", e);
-            toast.error("Failed to disconnect. Please try again.", { id: toastId });
             setLoading(false);
         }
     }

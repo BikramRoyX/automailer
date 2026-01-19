@@ -9,8 +9,8 @@ import { resolveMx } from "dns/promises"
 import crypto from "crypto"
 
 export async function POST(req: Request) {
-    let session;
-    let contactId;
+    let session: any;
+    let contactId: string = "";
     let contact: any;
 
     try {
@@ -95,11 +95,13 @@ export async function POST(req: Request) {
         }
 
         // --- 0.5 GLOBAL BOUNCE CHECK ---
-        // Check if this email is in our global blacklist using raw query for safety
+        // Check if this email is in our global blacklist
         try {
-            // Using raw query allows this to work even if Prisma Client isn't fully updated yet
-            const bounces = await db.$queryRaw`SELECT id FROM GlobalBounce WHERE email = ${contact.email} AND isActive = 1 LIMIT 1` as any[]
-            if (bounces && bounces.length > 0) {
+            const bounce = await db.globalBounce.findUnique({
+                where: { email: contact.email }
+            });
+
+            if (bounce && bounce.isActive) {
                 await db.contact.update({
                     where: { id: contactId },
                     data: { status: 'bounced', bounceDescription: "Found in Global Bounce Blacklist" }
@@ -107,7 +109,7 @@ export async function POST(req: Request) {
                 return new NextResponse(JSON.stringify({ error: `Skipping: Known Global Bounce` }), { status: 422 })
             }
         } catch (e) {
-            // Ignore (Table might not exist yet if migration failed, safe to proceed)
+            console.error("Global Bounce Check Failed:", e)
         }
 
         // --- PRE-SEND VALIDATION: DNS & Typo Check ---
@@ -159,6 +161,64 @@ export async function POST(req: Request) {
             where: { id: session.user.id },
             include: { profile: true } // Fetch profile for title fallback
         })
+
+        if (!user) return new NextResponse("User field missing", { status: 404 })
+
+        // --- DYNAMIC TEMPLATE ROTATION (SMART MATCHING) ---
+        // "jo target role , experience level ho uski hissab se template show and mail usi template mai bhje"
+        let finalSubject = subject;
+        let finalBody = emailBody;
+
+        try {
+            const allTemplates = await db.template.findMany({
+                where: { userId: session.user.id }
+            });
+
+            if (allTemplates.length > 0) {
+                let pool = allTemplates;
+                const normalize = (s: string) => s ? s.toLowerCase() : "";
+                const target = normalize(targetRole || "");
+                const userExp = normalize(user.profile?.experienceLevel || "");
+
+                // 1. Keyword Matching (Role & Experience)
+                // We split targetRole into words (e.g. "React Intern") -> ["react", "intern"]
+                const keywords = target.split(/\s+/).filter(w => w.length > 2);
+
+                // Add explicit experience keywords from user profile if targetRole is vague
+                if (userExp.includes("intern") || userExp.includes("trainee")) keywords.push("intern", "trainee", "fresher");
+                if (userExp.includes("senior") || userExp.includes("lead")) keywords.push("senior", "lead", "manager");
+
+                if (keywords.length > 0) {
+                    // Filter: Template MUST contain at least one major keyword if possible
+                    // We also penalize mismatches (e.g. if target is "Intern", avoid "Senior")
+
+                    const matches = allTemplates.filter(t => {
+                        const content = normalize(t.name) + " " + normalize(t.subject);
+
+                        // Strict Negatives
+                        if (target.includes("intern") && content.includes("senior")) return false;
+                        if (target.includes("senior") && content.includes("intern")) return false;
+                        if (target.includes("trainee") && content.includes("lead")) return false;
+
+                        // Positives: Does it match any keyword?
+                        return keywords.some(k => content.includes(k));
+                    });
+
+                    if (matches.length > 0) {
+                        // console.log(`Smart Match: Found ${matches.length} templates for '${targetRole}'`);
+                        pool = matches;
+                    }
+                }
+
+                // Pick a random template from the filtered pool
+                const randomTemplate = pool[Math.floor(Math.random() * pool.length)];
+                finalSubject = randomTemplate.subject || finalSubject;
+                finalBody = randomTemplate.body || finalBody;
+                // console.log(`Rotating: Selected '${randomTemplate.title}'`);
+            }
+        } catch (e) {
+            console.error("Template rotation failed, using default", e);
+        }
 
         if (!user) return new NextResponse("User field missing", { status: 404 })
 
@@ -250,21 +310,36 @@ export async function POST(req: Request) {
         }
 
         const replaceVars = (text: string) => {
-            return text
+            let content = text || "";
+
+            // Standard Replacements
+            content = content
                 .replace(/{{name}}/g, contact.name || "there")
                 .replace(/{{company}}/g, contact.company || "your company")
                 .replace(/{{role}}/g, contact.role || "Hiring Manager")
                 .replace(/\[My Role\]/gi, userTitle)
                 .replace(/\[Role\]/gi, userTitle)
-                .replace(/{{target_role}}/gi, userTitle)
+                .replace(/{{target_role}}/gi, userTitle);
+
+            // Sender Details (Signature Enforcement)
+            const senderName = session.user.name || "Candidate";
+            const senderPhone = user.profile?.mobile || user.phoneNumber || "";
+
+            content = content
+                .replace(/{{sender_name}}/g, senderName)
+                .replace(/\[Name\]/g, contact.name || "Hiring Manager") // Legacy support
+                .replace(/{{sender_phone}}/g, senderPhone)
+                .replace(/\[My Phone\]/g, senderPhone);
+
+            return content;
         }
 
         // 4. Send Email
         const sentResult = await sendEmail(
             accessToken,
             contact.email,
-            replaceVars(subject),
-            replaceVars(emailBody),
+            replaceVars(finalSubject),
+            replaceVars(finalBody),
             [
                 {
                     filename: "Resume.pdf",
@@ -294,22 +369,16 @@ export async function POST(req: Request) {
 
             await db.$transaction([
                 // 6a. Main Log
-                db.log.create({
-                    data: {
-                        id: logId,
-                        userId: session.user.id,
-                        type: 'email_sent',
-                        message: `Sent to ${contact.email}`,
-                        appliedRole: userTitle,
-                        timestamp: logTimestamp
-                    }
-                }),
+                db.$executeRaw`
+                    INSERT INTO Log (id, userId, type, message, appliedRole, timestamp)
+                    VALUES (${logId}, ${session.user.id}, 'email_sent', ${`Sent to ${contact.email}`}, ${userTitle}, ${logTimestamp})
+                `,
                 // 6b. Bounce Tracking Record
                 db.sentEmail.create({
                     data: {
                         userId: session.user.id,
                         recipient: contact.email,
-                        subject: replaceVars(subject),
+                        subject: replaceVars(finalSubject),
                         gmailMessageId: sentResult.id!, // Critical for matching bounces
                         threadId: sentResult.threadId,
                         status: "SENT",
@@ -348,14 +417,15 @@ export async function POST(req: Request) {
             // Add to Global Bounce if Hard Bounce
             if (isHardBounce) {
                 try {
-                    // Raw SQL to safely insert if not exists
-                    const bounceId = crypto.randomUUID()
-                    const now = new Date()
-                    // We use INSERT OR IGNORE logic or try/catch unique constraint
-                    // Safe approach with raw query:
-                    await db.$executeRaw`INSERT OR IGNORE INTO GlobalBounce (id, email, reason, createdAt) VALUES (${bounceId}, ${contact!.email}, ${errMsg}, ${now})`
+                    await db.globalBounce.create({
+                        data: {
+                            email: contact!.email,
+                            reason: errMsg,
+                            isActive: true
+                        }
+                    })
                 } catch (e) {
-                    // console.error("Global bounce save failed", e)
+                    // Unique constraint violation (already exists) - ignore
                 }
             }
         }

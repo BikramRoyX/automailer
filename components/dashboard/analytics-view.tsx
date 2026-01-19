@@ -4,8 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import useSWR from "swr"
 import { toast } from "sonner"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Activity, Users, Send, AlertOctagon, Calendar, ArrowUpRight, Loader2, RefreshCcw } from "lucide-react"
+import { Activity, Users, Send, AlertOctagon, Calendar, ArrowUpRight, Loader2 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
@@ -17,7 +16,7 @@ export function AnalyticsView() {
         return res.json()
     })
 
-    const { data, error, isLoading, mutate } = useSWR(`/api/analytics?days=${filterDays}`, fetcher, {
+    const { data, error, isLoading } = useSWR(`/api/analytics?days=${filterDays}`, fetcher, {
         refreshInterval: 5000,
         revalidateOnFocus: true
     })
@@ -78,24 +77,6 @@ export function AnalyticsView() {
                     <Activity className="w-6 h-6 text-indigo-400" /> Performance Analytics
                 </h2>
                 <div className="flex items-center gap-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={async () => {
-                            const toastId = toast.loading("Syncing with Gmail...")
-                            try {
-                                await fetch("/api/analytics/sync", { method: "POST" })
-                                mutate() // Refresh SWR
-                                toast.success("Synced successfully!", { id: toastId })
-                            } catch (e) {
-                                toast.error("Sync failed", { id: toastId })
-                            }
-                        }}
-                        className="bg-zinc-900 border-zinc-700 text-zinc-400 hover:text-white hover:bg-zinc-800"
-                    >
-                        <RefreshCcw className="w-4 h-4 mr-2" /> Sync
-                    </Button>
-
                     {/* Limit Indicator */}
                     {limits && (
                         <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-700 rounded-full text-xs font-medium mr-2">

@@ -23,7 +23,9 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: "CSV Parse Error", details: result.errors }, { status: 400 });
         }
 
-        const rows = result.data as any[];
+        type CSVRow = Record<string, string | null | undefined>;
+
+        const rows = result.data as CSVRow[];
         if (rows.length === 0) {
             return NextResponse.json({ message: "CSV is empty" }, { status: 400 });
         }
@@ -51,13 +53,13 @@ export async function POST(req: Request) {
                 continue;
             }
 
-            const email = row[emailKey].toString().trim().toLowerCase();
-            const name = nameKey ? row[nameKey].toString().trim() : "";
-            const company = companyKey ? row[companyKey].toString().trim() : "";
-            const title = titleKey ? row[titleKey].toString().trim() : "";
+            const email = String(row[emailKey] || "").trim().toLowerCase();
+            const name = nameKey ? String(row[nameKey] || "").trim() : "";
+            const company = companyKey ? String(row[companyKey] || "").trim() : "";
+            const title = titleKey ? String(row[titleKey] || "").trim() : "";
 
             // Allow explicit target role from CSV, or default
-            const detectedRole = targetRoleKey ? row[targetRoleKey].toString().trim() : "";
+            const detectedRole = targetRoleKey ? String(row[targetRoleKey] || "").trim() : "";
 
             // Detect role based on User's requested mapping:
             // decide_role(company, title) -> "Software Trainee / Intern" etc.
@@ -131,6 +133,21 @@ export async function POST(req: Request) {
                 await db.globalHrList.createMany({
                     data: newHrEntries
                 });
+
+                // --- BROADCAST NOTIFICATION TRIGGER ---
+                // Notify all users that the community database has grown
+                try {
+                    await db.broadcast.create({
+                        data: {
+                            title: "Community Database Updated 🚀",
+                            message: `${newHrEntries.length} new verified HR contacts have been added directly to the community list. Sync now to access them!`,
+                            type: "community",
+                            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // Expires in 24 hours
+                        }
+                    })
+                } catch (broadcastErr) {
+                    console.error("Failed to create broadcast:", broadcastErr)
+                }
             }
         } catch (e) {
             console.error("Global HR List Sync Error:", e);

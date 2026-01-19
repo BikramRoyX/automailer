@@ -13,9 +13,8 @@ import {
   Globe,
   BarChart3,
   Menu,
-  Github,
-  Twitter,
   Linkedin,
+  Instagram,
   CheckCircle2,
   Lock,
   FileSpreadsheet,
@@ -547,13 +546,10 @@ export default function LandingPage() {
                 Empowering job seekers to land their dream roles through direct, authentic connection. Built with privacy and deliverability at its core.
               </p>
               <div className="flex gap-4">
-                <Link href="#" className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/20 hover:text-white transition-all border border-white/5">
-                  <Twitter className="h-5 w-5" />
+                <Link href="https://www.instagram.com/entrepreneur.bikram.roy/?__pwa=1" target="_blank" className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/20 hover:text-white transition-all border border-white/5">
+                  <Instagram className="h-5 w-5" />
                 </Link>
-                <Link href="#" className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/20 hover:text-white transition-all border border-white/5">
-                  <Github className="h-5 w-5" />
-                </Link>
-                <Link href="#" className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/20 hover:text-white transition-all border border-white/5">
+                <Link href="https://www.linkedin.com/in/bikram-kumar-roy-19344b19a" target="_blank" className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white/20 hover:text-white transition-all border border-white/5">
                   <Linkedin className="h-5 w-5" />
                 </Link>
               </div>
@@ -572,8 +568,8 @@ export default function LandingPage() {
               <h4 className="font-bold mb-6 text-white text-base">Resources</h4>
               <ul className="space-y-4 text-gray-500">
                 <li><Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Email Templates</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Setup Guide</Link></li>
+                <li><Link href="/templates" className="hover:text-white transition-colors">Email Templates</Link></li>
+                <li><Link href="/guide" className="hover:text-white transition-colors">Setup Guide</Link></li>
               </ul>
             </div>
 
@@ -596,7 +592,7 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer >
     </div >
   )
 }
