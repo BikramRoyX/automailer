@@ -80,7 +80,7 @@ export function AgentControlPanel({
                 </div>
 
                 {/* Main Dashboard Area */}
-                <div className="p-8">
+                <div className="p-4 md:p-8">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center justify-items-center">
 
                         {/* 1. circular Progress (Daily Limit) */}

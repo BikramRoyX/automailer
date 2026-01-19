@@ -134,7 +134,7 @@ export function TemplateBuilder({ template, setTemplate, profile, onComplete, is
         return (
             <div className="max-w-xl mx-auto mt-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <Card className="bg-[#0F0F10] border-white/10 shadow-2xl">
-                    <div className="p-8 space-y-8">
+                    <div className="p-4 md:p-8 space-y-8">
                         <div className="text-center space-y-2">
                             <div className="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center mx-auto mb-4 border border-indigo-500/20">
                                 <Sparkles className="w-6 h-6 text-indigo-400" />
@@ -144,7 +144,7 @@ export function TemplateBuilder({ template, setTemplate, profile, onComplete, is
                         </div>
                         {/* Input Fields */}
                         <div className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label className="text-zinc-300 font-semibold text-sm uppercase tracking-wider">Full Name</Label>
                                     <div className="relative">

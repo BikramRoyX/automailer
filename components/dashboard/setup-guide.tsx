@@ -106,9 +106,9 @@ export function SetupGuide({ step, status, gmailEmail, globalHrCount, onComplete
                         "absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl blur opacity-20 transition duration-500",
                         !status.isGmailConnected && "opacity-60 group-hover:opacity-100"
                     )} />
-                    <div className="relative h-full bg-[#0F0F10] border border-white/10 rounded-2xl p-8 flex flex-col justify-between overflow-hidden">
+                    <div className="relative h-full bg-[#0F0F10] border border-white/10 rounded-2xl p-4 md:p-8 flex flex-col justify-between overflow-hidden">
                         {/* Header */}
-                        <div className="flex items-start justify-between mb-8">
+                        <div className="flex flex-col md:flex-row md:items-start justify-between mb-8 gap-4 md:gap-0">
                             <div className="flex items-center gap-4">
                                 <div className={cn(
                                     "p-4 rounded-xl transition-colors",
@@ -179,9 +179,9 @@ export function SetupGuide({ step, status, gmailEmail, globalHrCount, onComplete
                         "absolute -inset-0.5 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl blur opacity-20 transition duration-500",
                         (!uploadStatus.csv || !uploadStatus.resume) && "opacity-40 group-hover:opacity-80"
                     )} />
-                    <div className="relative h-full bg-[#0F0F10] border border-white/10 rounded-2xl p-8 flex flex-col justify-between">
+                    <div className="relative h-full bg-[#0F0F10] border border-white/10 rounded-2xl p-4 md:p-8 flex flex-col justify-between">
                         {/* Header */}
-                        <div className="flex items-start justify-between mb-8">
+                        <div className="flex flex-col md:flex-row md:items-start justify-between mb-8 gap-4 md:gap-0">
                             <div className="flex items-center gap-4">
                                 <div className={cn(
                                     "p-4 rounded-xl transition-colors",

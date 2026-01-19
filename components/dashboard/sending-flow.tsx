@@ -189,10 +189,10 @@ export function SendingFlow({ contacts, template, onComplete, onStop }: SendingF
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="relative z-20 w-full max-w-5xl bg-[#0b0b0f]/90 border border-white/10 rounded-3xl shadow-[0_0_50px_rgba(79,70,229,0.15)] overflow-hidden flex flex-col md:flex-row h-[700px]"
+                className="relative z-20 w-full max-w-5xl bg-[#0b0b0f]/90 border border-white/10 rounded-3xl shadow-[0_0_50px_rgba(79,70,229,0.15)] overflow-hidden flex flex-col md:flex-row h-full md:h-[700px] max-h-[90vh]"
             >
                 {/* --- LEFT PANEL: VISUALIZER (60%) --- */}
-                <div className="flex-[3] relative p-8 flex flex-col overflow-hidden">
+                <div className="flex-[3] relative p-4 md:p-8 flex flex-col overflow-hidden">
 
                     {/* Background Grid */}
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10" />
