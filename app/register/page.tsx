@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,6 +14,13 @@ import { SwipeableCards } from "@/components/swipeable-cards"
 
 export default function RegisterPage() {
     const router = useRouter()
+    const { data: session, status } = useSession()
+
+    if (status === "authenticated") {
+        router.push("/dashboard")
+        return null
+    }
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
@@ -102,7 +109,7 @@ export default function RegisterPage() {
                             <Input
                                 id="email"
                                 type="email"
-                                placeholder="name@example.com"
+                                placeholder="Bikramroyx@gmail.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
@@ -114,6 +121,7 @@ export default function RegisterPage() {
                             <Input
                                 id="password"
                                 type="password"
+                                placeholder="***********"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
