@@ -53,9 +53,9 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="flex min-h-screen w-full bg-black text-white selection:bg-indigo-500/30 font-sans">
+        <div className="flex h-screen w-full bg-black text-white selection:bg-indigo-500/30 font-sans overflow-hidden">
             {/* Left Side - Form */}
-            <div className="w-full lg:w-1/2 flex flex-col p-8 md:p-12 lg:p-16 relative z-10 bg-black/50 backdrop-blur-sm">
+            <div className="w-full lg:w-1/2 h-full flex flex-col p-8 md:p-12 lg:p-16 relative z-10 bg-black/50 backdrop-blur-sm overflow-y-auto">
                 <div className="mb-10">
                     <Link href="/" className="fit-content">
                         <Logo />

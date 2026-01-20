@@ -50,24 +50,26 @@ export default function DashboardPage() {
             if (isLoading) {
                 // Logic refined by strict status (NEW ORDER: Connect -> Prepare -> Craft -> Launch)
 
-                // 1. If not connected -> Connect
-                if (!agentData.gmail_connected) setActiveStep('connect')
+                // 1. If not connected -> Connect (Stay there)
+                if (!agentData.gmail_connected) {
+                    setActiveStep('connect')
+                }
+                // 2. If connected, reactive effect will bump to 'prepare' if we were at 'connect'.
+                // But for initial load, we want deep linking support:
 
-                // 2. If connected but Resources (Resume/Community) missing -> Prepare
-                else if (workData.resumeStatus !== 'UPLOADED' || workData.communityStatus === 'NOT_SELECTED') setActiveStep('prepare')
-
-                // 3. If Resources ready but Template NOT_GENERATED -> Craft
-                else if (workData.templateStatus !== 'GENERATED') setActiveStep('craft')
-
-                // 4. If Template generated but NO FRESH CONTACTS -> Redirect to Prepare
+                else if (workData.resumeStatus !== 'UPLOADED' || workData.communityStatus === 'NOT_SELECTED') {
+                    setActiveStep('prepare')
+                }
+                else if (workData.templateStatus !== 'GENERATED') {
+                    setActiveStep('craft')
+                }
                 else if (agentData.fresh_contact_count === 0) {
                     setActiveStep('prepare')
-                    // Optional: We could set a message here to let the user know why
                     setResult({ success: false, message: "Campaign exhausted. Please add more contacts." })
                 }
-
-                // 5. If all done -> Launch
-                else setActiveStep('launch')
+                else {
+                    setActiveStep('launch')
+                }
             }
         } catch (err) {
             console.error("Status check failed", err)
@@ -97,6 +99,14 @@ export default function DashboardPage() {
 
     // This is a placeholder as I am switching to editing the config file first.
     // I will not actually edit the dashboard page yet.
+    // Reactive Auto-Advance for Gmail Connection
+    useEffect(() => {
+        if (agentStatus?.gmail_connected && activeStep === 'connect') {
+            // User just connected, move them to next step automatically
+            setActiveStep('prepare')
+        }
+    }, [agentStatus, activeStep])
+
     useEffect(() => {
         fetchStatus()
     }, [])

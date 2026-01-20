@@ -30,6 +30,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ScreenLoader } from "@/components/ui/screen-loader"
 
 const NAV_ITEMS = [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -44,6 +45,7 @@ export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [notifications, setNotifications] = useState<any[]>([])
     const [isLoading, setIsLoading] = useState(false)
+    const [isLoggingOut, setIsLoggingOut] = useState(false)
 
     // Fetch notifications
     const fetchNotifications = async () => {
@@ -69,6 +71,7 @@ export function Navbar() {
 
     return (
         <>
+            <ScreenLoader visible={isLoggingOut} message="Logging out safely..." />
             <motion.nav
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
@@ -224,8 +227,11 @@ export function Navbar() {
                                 <DropdownMenuItem
                                     className="text-red-400 focus:text-red-400 focus:bg-red-500/10 cursor-pointer"
                                     onClick={async () => {
+                                        setIsLoggingOut(true)
+                                        // Fake delay to show animation (smooth transition)
+                                        await new Promise(resolve => setTimeout(resolve, 2000))
                                         await resetUserData()
-                                        signOut()
+                                        await signOut() // Returns promise
                                     }}
                                 >
                                     <LogOut className="mr-2 h-4 w-4" />
@@ -282,8 +288,11 @@ export function Navbar() {
                                 variant="destructive"
                                 className="w-full justify-start gap-3 bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20"
                                 onClick={async () => {
+                                    setIsLoggingOut(true)
+                                    // Fake delay to show animation (smooth transition)
+                                    await new Promise(resolve => setTimeout(resolve, 2000))
                                     await resetUserData()
-                                    signOut()
+                                    await signOut()
                                 }}
                             >
                                 <LogOut className="w-5 h-5" />

@@ -33,12 +33,17 @@ export default function SettingsPage() {
 
     useEffect(() => {
         checkStatus()
+        // Aggressive re-check if just returned from auth
+        if (window.location.hash.includes('code') || searchParams.has('code') || searchParams.size > 0) {
+            setTimeout(checkStatus, 1000)
+            setTimeout(checkStatus, 3000)
+        }
         // Clean up URL params
         if (error || success) {
             const newUrl = window.location.pathname;
             window.history.replaceState({}, '', newUrl)
         }
-    }, [error, success])
+    }, [error, success, searchParams])
 
     const handleConnect = () => {
         // Redirect to our custom OAuth flow

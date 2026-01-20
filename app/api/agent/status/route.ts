@@ -53,7 +53,6 @@ export async function GET() {
 
         if (googleAccount && googleAccount.access_token) {
             // STRICT CHECK: Verify token validity & scopes
-            // We do this because user can have a DB record but revoked permissions/missing scopes.
             try {
                 // Using tokeninfo is fast and specifically checks scopes
                 const tokenCheck = await fetch(`https://oauth2.googleapis.com/tokeninfo?access_token=${googleAccount.access_token}`)
@@ -64,14 +63,19 @@ export async function GET() {
                     if (tokenData.scope && (tokenData.scope.includes("gmail.send") || tokenData.scope.includes("mail.google.com"))) {
                         gmail_connected = true
                     } else {
-                        console.warn(`[Agent Status] Token valid but missing 'gmail.send' scope: ${tokenData.scope}`)
+                        console.warn(`[Agent Status] Token valid but missing 'gmail.send' scope. Scopes found: ${tokenData.scope}`)
                     }
                 } else {
-                    console.warn(`[Agent Status] Token verification failed: ${tokenCheck.status}`)
+                    const errText = await tokenCheck.text()
+                    console.warn(`[Agent Status] Token verification failed: ${tokenCheck.status} - ${errText}`)
+                    // If 400 (invalid token), we might want to flag it?
+                    // For now, gmail_connected remains false.
                 }
             } catch (validateErr) {
                 console.error("[Agent Status] Token validation error:", validateErr)
             }
+        } else {
+            console.log(`[Agent Status] No 'google-gmail' account found for user ${user.id} (or missing access_token)`)
         }
 
         // 2. Counts
