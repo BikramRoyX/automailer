@@ -1,38 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AutoMailer 2.0 🚀
+
+A powerful, robust, and randomized email automation agent for job applications.
+
+## Features ✨
+
+### 1. Robust Reliability 🛡️
+- **Strict Email Validation:** Automatically rejects invalid or malformed email addresses before sending.
+- **Variable Safeguards:** Never sends "Dear ," (empty names) again. Auto-falls back to "there" or "your company".
+- **Safety Locks:** Prevents accidental double-clicks or parallel campaign launches.
+
+### 2. Smart Randomization 🎲
+- **Fair Queuing:** Distributes sending batches randomly from your fresh contacts list to prevent "stuck" queues.
+- **Community DB Shuffling:** Randomly selects 50 unique, verified HR contacts every time you sync, ensuring diversity in outreach.
+
+### 3. Secure Authentication 🔐
+- **Strict Scope Checking:** Dashboard strictly validates that you have `gmail.send` permissions before allowing a launch.
+- **Synced Status:** "Mission Control" and "Settings" are always in sync regarding your connection health.
 
 ## Getting Started
 
-First, run the development server:
+1.  **Connect Gmail:** Go to Settings and authorize the app.
+2.  **Upload Resume:** Parse your resume for keyword matching.
+3.  **Select Community DB:** Get 50 verified contacts instanty.
+4.  **Launch:** Let the agent handle the outreach.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tech Stack
+- **Framework:** Next.js 14
+- **Database:** Prisma (PostgreSQL)
+- **Auth:** NextAuth (Google OAuth 2.0)
+- **Styling:** Tailwind CSS + Framer Motion
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-// minor change - forced redeploy
-// Production deploy trigger: 2026-01-18
