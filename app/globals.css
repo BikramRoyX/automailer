@@ -153,13 +153,15 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.985 0.01 240); /* Very tint blue-ish white */
+  --background: oklch(0.985 0.01 240);
+  /* Very tint blue-ish white */
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.55 0.2 260); /* Vibrant Indigo */
+  --primary: oklch(0.55 0.2 260);
+  /* Vibrant Indigo */
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.96 0.01 240);
   --secondary-foreground: oklch(0.205 0 0);
@@ -187,13 +189,16 @@
 }
 
 .dark {
-  --background: oklch(0.12 0.02 240); /* Deep Technical Slate */
+  --background: oklch(0.12 0.02 240);
+  /* Deep Technical Slate */
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.15 0.02 240); /* Slightly lighter slate */
+  --card: oklch(0.15 0.02 240);
+  /* Slightly lighter slate */
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.15 0.02 240);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.6 0.18 260); /* Bright Indigo for Dark Mode */
+  --primary: oklch(0.6 0.18 260);
+  /* Bright Indigo for Dark Mode */
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.2 0.02 240);
   --secondary-foreground: oklch(0.985 0 0);
@@ -202,7 +207,8 @@
   --accent: oklch(0.2 0.02 240);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(0.3 0.02 240); /* More visible borders */
+  --border: oklch(0.3 0.02 240);
+  /* More visible borders */
   --input: oklch(0.3 0.02 240);
   --ring: oklch(0.6 0.18 260);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -224,6 +230,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
