@@ -36,8 +36,8 @@ export default function DashboardPage() {
     const fetchStatus = async () => {
         try {
             const [agentRes, workRes] = await Promise.all([
-                fetch("/api/agent/status"),
-                fetch("/api/workflow/status")
+                fetch(`/api/agent/status?t=${Date.now()}`),
+                fetch(`/api/workflow/status?t=${Date.now()}`)
             ])
             const agentData = await agentRes.json()
             const workData = await workRes.json()
@@ -132,11 +132,26 @@ export default function DashboardPage() {
 
     const handleRunAgent = async () => {
         try {
-            const limitParam = batchSize === "MAX" ? "" : `?limit=${batchSize}`
-            const res = await fetch(`/api/agent/contacts${limitParam}`)
+            // Buffer Strategy: Fetch more than needed to allow for skips/errors
+            // If user wants 1, we fetch 5. If user wants 5, we fetch 10.
+            let fetchLimit = "";
+            let targetCount = -1; // -1 means "Send All" (MAX)
+
+            if (batchSize !== "MAX") {
+                targetCount = batchSize;
+                const buffer = Math.max(5, Math.ceil(batchSize * 0.5)); // min 5 buffer, or 50% extra
+                const safeLimit = batchSize + buffer;
+                fetchLimit = `?limit=${safeLimit}`;
+            }
+
+            const res = await fetch(`/api/agent/contacts${fetchLimit}`)
             const data = await res.json()
             if (data.contacts && data.contacts.length > 0) {
                 setLaunchContacts(data.contacts)
+                // Pass targetCount to SendingFlow via a new state or just prop if I could. 
+                // Since SendingFlow is rendered conditionally below, I need to pass it there.
+                // I will add a transient state for this run.
+                setRunConfig({ targetCount })
                 setShowingSendingFlow(true)
             } else {
                 setResult({ success: false, message: "No fresh contacts found to email." })
@@ -146,6 +161,9 @@ export default function DashboardPage() {
             setResult({ success: false, message: "Failed to load contacts." })
         }
     }
+
+    // Transient Switcher State
+    const [runConfig, setRunConfig] = useState({ targetCount: -1 })
 
     // Template State (Keeping it lifted here so it persists between tabs)
     const [template, setTemplate] = useState({
@@ -373,6 +391,7 @@ export default function DashboardPage() {
                     <SendingFlow
                         contacts={launchContacts}
                         template={template}
+                        targetCount={runConfig.targetCount} // Pass the target
                         onComplete={(stats) => {
                             setShowingSendingFlow(false)
                             const isSuccess = stats.sent > 0

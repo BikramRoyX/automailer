@@ -45,3 +45,5 @@ next-env.d.ts
 # backups
 broken_backup/
 old_backup/
+out.txt
+recent_accounts.txt

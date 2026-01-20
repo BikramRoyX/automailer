@@ -99,7 +99,7 @@ function LoginContent() {
                     <div className="grid grid-cols-1 gap-4 mb-8">
                         <Button
                             variant="outline"
-                            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                            onClick={() => signIn("google-gmail", { callbackUrl: "/dashboard" })}
                             className="w-full h-12 border-white/10 bg-white/5 hover:bg-white/10 hover:text-white text-gray-300 font-medium rounded-xl transition-all"
                         >
                             <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">

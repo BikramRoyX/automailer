@@ -1,0 +1,848 @@
+Starting Bounce Fetcher (Centralized Logic)...
+Found 4 connected accounts.
+
+Scanning bounces for: jamtarathecityofcyberwarriors@gmail.com (jamtara the city of cyber warriors)
+Gmail list/loop failed GaxiosError: Request had insufficient authentication scopes.
+    at Gaxios._request (C:\Users\ebrne\AutoMailer\node_modules\gaxios\src\gaxios.ts:213:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async OAuth2Client.requestAsync (C:\Users\ebrne\AutoMailer\node_modules\google-auth-library\build\src\auth\oauth2client.js:463:20)
+    at async createAPIRequestAsync (C:\Users\ebrne\AutoMailer\node_modules\googleapis-common\build\src\apirequest.js:308:25)
+    at async scanBouncesForUser (C:\Users\ebrne\AutoMailer\lib\bounce-scanner.ts:54:25)
+    at async fetchBounces (C:\Users\ebrne\AutoMailer\scripts\fetch-gmail-bounces.ts:19:28) {
+  config: {
+    url: URL {
+      href: 'https://gmail.googleapis.com/gmail/v1/users/me/messages?q=from%3Amailer-daemon%20is%3Aunread%20after%3A1768681711&maxResults=50&includeSpamTrash=true',
+      origin: 'https://gmail.googleapis.com',
+      protocol: 'https:',
+      username: '',
+      password: '',
+> Processed: 0
+      host: 'gmail.googleapis.com',
+      hostname: 'gmail.googleapis.com',
+      port: '',
+      pathname: '/gmail/v1/users/me/messages',
+      search: '?q=from%3Amailer-daemon%20is%3Aunread%20after%3A1768681711&maxResults=50&includeSpamTrash=true',
+      searchParams: URLSearchParams {
+        'q' => 'from:mailer-daemon is:unread after:1768681711',
+        'maxResults' => '50',
+        'includeSpamTrash' => 'true' },
+      hash: ''
+    },
+    method: 'GET',
+    apiVersion: '',
+    userAgentDirectives: [ [Object] ],
+    paramsSerializer: [Function (anonymous)],
+    headers: Headers {
+      'accept-encoding': 'gzip',
+      authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+
+Scanning bounces for: jasonroycompany@gmail.com (#Bikram Roy)
+      'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+      'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0'
+    },
+    params: {
+      q: 'from:mailer-daemon is:unread after:1768681711',
+      maxResults: 50,
+      includeSpamTrash: true
+    },
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1768854511884,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: Response {
+    size: 0,
+    data: { error: [Object] },
+    config: {
+      url: URL {},
+      method: 'GET',
+      apiVersion: '',
+      userAgentDirectives: [Array],
+      paramsSerializer: [Function (anonymous)],
+      headers: Headers {
+        'accept-encoding': 'gzip',
+        authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+        'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+        'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0'
+      },
+      params: [Object],
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    Symbol(Body internals): {
+      body: [Gunzip],
+      stream: [Gunzip],
+      boundary: null,
+      disturbed: true,
+      error: null
+    },
+    Symbol(Response internals): {
+      type: 'default',
+      url: 'https://gmail.googleapis.com/gmail/v1/users/me/messages?q=from%3Amailer-daemon%20is%3Aunread%20after%3A1768681711&maxResults=50&includeSpamTrash=true',
+      status: 403,
+      statusText: 'Forbidden',
+      headers: [Object],
+      counter: 0,
+      highWaterMark: 16384
+    }
+  },
+  code: 403,
+  status: 403,
+  error: undefined,
+  Symbol(gaxios-gaxios-error): '7.1.3',
+  [cause]: {
+    message: 'Request had insufficient authentication scopes.',
+    code: 403,
+    status: 'PERMISSION_DENIED',
+    errors: [ [Object] ],
+    details: [ [Object] ]
+  }
+}
+> Errors: [ 'Gmail loop error' ]
+Failed to process message 19bd7c065658516a GaxiosError: Request had insufficient authentication scopes.
+    at Gaxios._request (C:\Users\ebrne\AutoMailer\node_modules\gaxios\src\gaxios.ts:213:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async OAuth2Client.requestAsync (C:\Users\ebrne\AutoMailer\node_modules\google-auth-library\build\src\auth\oauth2client.js:463:20)
+    at async createAPIRequestAsync (C:\Users\ebrne\AutoMailer\node_modules\googleapis-common\build\src\apirequest.js:308:25)
+    at async scanBouncesForUser (C:\Users\ebrne\AutoMailer\lib\bounce-scanner.ts:169:21)
+    at async fetchBounces (C:\Users\ebrne\AutoMailer\scripts\fetch-gmail-bounces.ts:19:28) {
+  config: {
+    url: URL {
+      href: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bd7c065658516a/modify',
+      origin: 'https://gmail.googleapis.com',
+      protocol: 'https:',
+      username: '',
+      password: '',
+      host: 'gmail.googleapis.com',
+      hostname: 'gmail.googleapis.com',
+      port: '',
+      pathname: '/gmail/v1/users/me/messages/19bd7c065658516a/modify',
+      search: '',
+      searchParams: URLSearchParams {},
+      hash: ''
+    },
+    method: 'POST',
+    apiVersion: '',
+    userAgentDirectives: [ [Object] ],
+    data: { removeLabelIds: [Array] },
+    headers: Headers {
+      'accept-encoding': 'gzip',
+      authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+      'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+      'content-type': 'application/json'
+    },
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    body: '{"removeLabelIds":["UNREAD"]}',
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    duplex: 'half',
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1768854513779,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: Response {
+    size: 0,
+    data: { error: [Object] },
+    config: {
+      url: URL {},
+      method: 'POST',
+      apiVersion: '',
+      userAgentDirectives: [Array],
+      data: [Object],
+      headers: Headers {
+        'accept-encoding': 'gzip',
+        authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+        'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+        'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+        'content-type': 'application/json'
+      },
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      body: '{"removeLabelIds":["UNREAD"]}',
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor],
+      duplex: 'half'
+    },
+    Symbol(Body internals): {
+      body: [Gunzip],
+      stream: [Gunzip],
+      boundary: null,
+      disturbed: true,
+      error: null
+    },
+    Symbol(Response internals): {
+      type: 'default',
+      url: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bd7c065658516a/modify',
+      status: 403,
+      statusText: 'Forbidden',
+      headers: [Object],
+      counter: 0,
+      highWaterMark: 16384
+    }
+  },
+  code: 403,
+  status: 403,
+  error: undefined,
+  Symbol(gaxios-gaxios-error): '7.1.3',
+  [cause]: {
+    message: 'Request had insufficient authentication scopes.',
+    code: 403,
+    status: 'PERMISSION_DENIED',
+    errors: [ [Object] ],
+    details: [ [Object] ]
+  }
+}
+Failed to process message 19bd7c05849e2d81 GaxiosError: Request had insufficient authentication scopes.
+    at Gaxios._request (C:\Users\ebrne\AutoMailer\node_modules\gaxios\src\gaxios.ts:213:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async OAuth2Client.requestAsync (C:\Users\ebrne\AutoMailer\node_modules\google-auth-library\build\src\auth\oauth2client.js:463:20)
+    at async createAPIRequestAsync (C:\Users\ebrne\AutoMailer\node_modules\googleapis-common\build\src\apirequest.js:308:25)
+    at async scanBouncesForUser (C:\Users\ebrne\AutoMailer\lib\bounce-scanner.ts:169:21)
+    at async fetchBounces (C:\Users\ebrne\AutoMailer\scripts\fetch-gmail-bounces.ts:19:28) {
+  config: {
+    url: URL {
+      href: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bd7c05849e2d81/modify',
+      origin: 'https://gmail.googleapis.com',
+      protocol: 'https:',
+      username: '',
+      password: '',
+      host: 'gmail.googleapis.com',
+      hostname: 'gmail.googleapis.com',
+      port: '',
+      pathname: '/gmail/v1/users/me/messages/19bd7c05849e2d81/modify',
+      search: '',
+      searchParams: URLSearchParams {},
+      hash: ''
+    },
+    method: 'POST',
+    apiVersion: '',
+    userAgentDirectives: [ [Object] ],
+    data: { removeLabelIds: [Array] },
+    headers: Headers {
+      'accept-encoding': 'gzip',
+      authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+      'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+      'content-type': 'application/json'
+    },
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    body: '{"removeLabelIds":["UNREAD"]}',
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    duplex: 'half',
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1768854515252,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: Response {
+    size: 0,
+    data: { error: [Object] },
+    config: {
+      url: URL {},
+      method: 'POST',
+      apiVersion: '',
+      userAgentDirectives: [Array],
+      data: [Object],
+      headers: Headers {
+        'accept-encoding': 'gzip',
+        authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+        'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+        'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+        'content-type': 'application/json'
+      },
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      body: '{"removeLabelIds":["UNREAD"]}',
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor],
+      duplex: 'half'
+    },
+    Symbol(Body internals): {
+      body: [Gunzip],
+      stream: [Gunzip],
+      boundary: null,
+      disturbed: true,
+      error: null
+    },
+    Symbol(Response internals): {
+      type: 'default',
+      url: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bd7c05849e2d81/modify',
+      status: 403,
+      statusText: 'Forbidden',
+      headers: [Object],
+      counter: 0,
+      highWaterMark: 16384
+    }
+  },
+  code: 403,
+  status: 403,
+  error: undefined,
+  Symbol(gaxios-gaxios-error): '7.1.3',
+  [cause]: {
+    message: 'Request had insufficient authentication scopes.',
+    code: 403,
+    status: 'PERMISSION_DENIED',
+    errors: [ [Object] ],
+    details: [ [Object] ]
+  }
+}
+> Processed: 0
+Failed to process message 19bcea8db519d425 GaxiosError: Request had insufficient authentication scopes.
+    at Gaxios._request (C:\Users\ebrne\AutoMailer\node_modules\gaxios\src\gaxios.ts:213:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async OAuth2Client.requestAsync (C:\Users\ebrne\AutoMailer\node_modules\google-auth-library\build\src\auth\oauth2client.js:463:20)
+    at async createAPIRequestAsync (C:\Users\ebrne\AutoMailer\node_modules\googleapis-common\build\src\apirequest.js:308:25)
+    at async scanBouncesForUser (C:\Users\ebrne\AutoMailer\lib\bounce-scanner.ts:169:21)
+    at async fetchBounces (C:\Users\ebrne\AutoMailer\scripts\fetch-gmail-bounces.ts:19:28) {
+  config: {
+    url: URL {
+      href: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bcea8db519d425/modify',
+      origin: 'https://gmail.googleapis.com',
+      protocol: 'https:',
+      username: '',
+      password: '',
+      host: 'gmail.googleapis.com',
+
+Scanning bounces for: jamtarathecityofcyberwarriors@gmail.com (jamtara the city of cyber warriors)
+      hostname: 'gmail.googleapis.com',
+      port: '',
+      pathname: '/gmail/v1/users/me/messages/19bcea8db519d425/modify',
+      search: '',
+      searchParams: URLSearchParams {},
+      hash: ''
+    },
+    method: 'POST',
+    apiVersion: '',
+    userAgentDirectives: [ [Object] ],
+    data: { removeLabelIds: [Array] },
+    headers: Headers {
+      'accept-encoding': 'gzip',
+      authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+      'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+      'content-type': 'application/json'
+    },
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    body: '{"removeLabelIds":["UNREAD"]}',
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    duplex: 'half',
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1768854516217,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: Response {
+    size: 0,
+    data: { error: [Object] },
+    config: {
+      url: URL {},
+      method: 'POST',
+      apiVersion: '',
+      userAgentDirectives: [Array],
+      data: [Object],
+      headers: Headers {
+        'accept-encoding': 'gzip',
+        authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+        'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+        'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+        'content-type': 'application/json'
+      },
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      body: '{"removeLabelIds":["UNREAD"]}',
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor],
+      duplex: 'half'
+    },
+    Symbol(Body internals): {
+      body: [Gunzip],
+      stream: [Gunzip],
+      boundary: null,
+      disturbed: true,
+      error: null
+    },
+    Symbol(Response internals): {
+      type: 'default',
+      url: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bcea8db519d425/modify',
+      status: 403,
+      statusText: 'Forbidden',
+      headers: [Object],
+      counter: 0,
+      highWaterMark: 16384
+    }
+  },
+  code: 403,
+  status: 403,
+  error: undefined,
+  Symbol(gaxios-gaxios-error): '7.1.3',
+  [cause]: {
+    message: 'Request had insufficient authentication scopes.',
+    code: 403,
+    status: 'PERMISSION_DENIED',
+    errors: [ [Object] ],
+    details: [ [Object] ]
+  }
+}
+> Processed: 0
+Gmail list/loop failed GaxiosError: Request had insufficient authentication scopes.
+    at Gaxios._request (C:\Users\ebrne\AutoMailer\node_modules\gaxios\src\gaxios.ts:213:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async OAuth2Client.requestAsync (C:\Users\ebrne\AutoMailer\node_modules\google-auth-library\build\src\auth\oauth2client.js:463:20)
+    at async createAPIRequestAsync (C:\Users\ebrne\AutoMailer\node_modules\googleapis-common\build\src\apirequest.js:308:25)
+    at async scanBouncesForUser (C:\Users\ebrne\AutoMailer\lib\bounce-scanner.ts:54:25)
+    at async fetchBounces (C:\Users\ebrne\AutoMailer\scripts\fetch-gmail-bounces.ts:19:28) {
+  config: {
+    url: URL {
+      href: 'https://gmail.googleapis.com/gmail/v1/users/me/messages?q=from%3Amailer-daemon%20is%3Aunread%20after%3A1768681716&maxResults=50&includeSpamTrash=true',
+      origin: 'https://gmail.googleapis.com',
+      protocol: 'https:',
+      username: '',
+      password: '',
+
+Scanning bounces for: jasonroycompany@gmail.com (#Bikram Roy)
+      host: 'gmail.googleapis.com',
+      hostname: 'gmail.googleapis.com',
+      port: '',
+      pathname: '/gmail/v1/users/me/messages',
+      search: '?q=from%3Amailer-daemon%20is%3Aunread%20after%3A1768681716&maxResults=50&includeSpamTrash=true',
+      searchParams: URLSearchParams {
+        'q' => 'from:mailer-daemon is:unread after:1768681716',
+        'maxResults' => '50',
+        'includeSpamTrash' => 'true' },
+      hash: ''
+    },
+    method: 'GET',
+    apiVersion: '',
+    userAgentDirectives: [ [Object] ],
+    paramsSerializer: [Function (anonymous)],
+    headers: Headers {
+      'accept-encoding': 'gzip',
+      authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+      'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0'
+    },
+    params: {
+      q: 'from:mailer-daemon is:unread after:1768681716',
+      maxResults: 50,
+      includeSpamTrash: true
+    },
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1768854516770,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: Response {
+    size: 0,
+    data: { error: [Object] },
+    config: {
+      url: URL {},
+      method: 'GET',
+      apiVersion: '',
+      userAgentDirectives: [Array],
+      paramsSerializer: [Function (anonymous)],
+      headers: Headers {
+        'accept-encoding': 'gzip',
+        authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+        'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+        'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0'
+      },
+      params: [Object],
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    Symbol(Body internals): {
+      body: [Gunzip],
+      stream: [Gunzip],
+      boundary: null,
+      disturbed: true,
+      error: null
+    },
+    Symbol(Response internals): {
+      type: 'default',
+      url: 'https://gmail.googleapis.com/gmail/v1/users/me/messages?q=from%3Amailer-daemon%20is%3Aunread%20after%3A1768681716&maxResults=50&includeSpamTrash=true',
+      status: 403,
+      statusText: 'Forbidden',
+      headers: [Object],
+      counter: 0,
+      highWaterMark: 16384
+    }
+  },
+  code: 403,
+  status: 403,
+  error: undefined,
+  Symbol(gaxios-gaxios-error): '7.1.3',
+  [cause]: {
+    message: 'Request had insufficient authentication scopes.',
+    code: 403,
+    status: 'PERMISSION_DENIED',
+    errors: [ [Object] ],
+    details: [ [Object] ]
+  }
+}
+> Errors: [ 'Gmail loop error' ]
+Failed to process message 19bd7c065658516a GaxiosError: Request had insufficient authentication scopes.
+    at Gaxios._request (C:\Users\ebrne\AutoMailer\node_modules\gaxios\src\gaxios.ts:213:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async OAuth2Client.requestAsync (C:\Users\ebrne\AutoMailer\node_modules\google-auth-library\build\src\auth\oauth2client.js:463:20)
+    at async createAPIRequestAsync (C:\Users\ebrne\AutoMailer\node_modules\googleapis-common\build\src\apirequest.js:308:25)
+    at async scanBouncesForUser (C:\Users\ebrne\AutoMailer\lib\bounce-scanner.ts:169:21)
+    at async fetchBounces (C:\Users\ebrne\AutoMailer\scripts\fetch-gmail-bounces.ts:19:28) {
+  config: {
+    url: URL {
+      href: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bd7c065658516a/modify',
+      origin: 'https://gmail.googleapis.com',
+      protocol: 'https:',
+      username: '',
+      password: '',
+      host: 'gmail.googleapis.com',
+      hostname: 'gmail.googleapis.com',
+      port: '',
+      pathname: '/gmail/v1/users/me/messages/19bd7c065658516a/modify',
+      search: '',
+      searchParams: URLSearchParams {},
+      hash: ''
+    },
+    method: 'POST',
+    apiVersion: '',
+    userAgentDirectives: [ [Object] ],
+    data: { removeLabelIds: [Array] },
+    headers: Headers {
+      'accept-encoding': 'gzip',
+      authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+      'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+      'content-type': 'application/json'
+    },
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    body: '{"removeLabelIds":["UNREAD"]}',
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    duplex: 'half',
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1768854518477,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: Response {
+    size: 0,
+    data: { error: [Object] },
+    config: {
+      url: URL {},
+      method: 'POST',
+      apiVersion: '',
+      userAgentDirectives: [Array],
+      data: [Object],
+      headers: Headers {
+        'accept-encoding': 'gzip',
+        authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+        'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+        'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+        'content-type': 'application/json'
+      },
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      body: '{"removeLabelIds":["UNREAD"]}',
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor],
+      duplex: 'half'
+    },
+    Symbol(Body internals): {
+      body: [Gunzip],
+      stream: [Gunzip],
+      boundary: null,
+      disturbed: true,
+      error: null
+    },
+    Symbol(Response internals): {
+      type: 'default',
+      url: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bd7c065658516a/modify',
+      status: 403,
+      statusText: 'Forbidden',
+      headers: [Object],
+      counter: 0,
+      highWaterMark: 16384
+    }
+  },
+  code: 403,
+  status: 403,
+  error: undefined,
+  Symbol(gaxios-gaxios-error): '7.1.3',
+  [cause]: {
+    message: 'Request had insufficient authentication scopes.',
+    code: 403,
+    status: 'PERMISSION_DENIED',
+    errors: [ [Object] ],
+    details: [ [Object] ]
+  }
+}
+Failed to process message 19bd7c05849e2d81 GaxiosError: Request had insufficient authentication scopes.
+    at Gaxios._request (C:\Users\ebrne\AutoMailer\node_modules\gaxios\src\gaxios.ts:213:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async OAuth2Client.requestAsync (C:\Users\ebrne\AutoMailer\node_modules\google-auth-library\build\src\auth\oauth2client.js:463:20)
+    at async createAPIRequestAsync (C:\Users\ebrne\AutoMailer\node_modules\googleapis-common\build\src\apirequest.js:308:25)
+    at async scanBouncesForUser (C:\Users\ebrne\AutoMailer\lib\bounce-scanner.ts:169:21)
+    at async fetchBounces (C:\Users\ebrne\AutoMailer\scripts\fetch-gmail-bounces.ts:19:28) {
+  config: {
+    url: URL {
+      href: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bd7c05849e2d81/modify',
+      origin: 'https://gmail.googleapis.com',
+      protocol: 'https:',
+      username: '',
+      password: '',
+      host: 'gmail.googleapis.com',
+      hostname: 'gmail.googleapis.com',
+      port: '',
+      pathname: '/gmail/v1/users/me/messages/19bd7c05849e2d81/modify',
+      search: '',
+      searchParams: URLSearchParams {},
+      hash: ''
+    },
+    method: 'POST',
+    apiVersion: '',
+    userAgentDirectives: [ [Object] ],
+    data: { removeLabelIds: [Array] },
+    headers: Headers {
+      'accept-encoding': 'gzip',
+      authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+      'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+      'content-type': 'application/json'
+    },
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    body: '{"removeLabelIds":["UNREAD"]}',
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    duplex: 'half',
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1768854519351,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: Response {
+    size: 0,
+    data: { error: [Object] },
+    config: {
+      url: URL {},
+      method: 'POST',
+      apiVersion: '',
+      userAgentDirectives: [Array],
+      data: [Object],
+      headers: Headers {
+        'accept-encoding': 'gzip',
+        authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+        'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+        'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+        'content-type': 'application/json'
+      },
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      body: '{"removeLabelIds":["UNREAD"]}',
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor],
+      duplex: 'half'
+    },
+    Symbol(Body internals): {
+      body: [Gunzip],
+      stream: [Gunzip],
+      boundary: null,
+      disturbed: true,
+      error: null
+    },
+    Symbol(Response internals): {
+      type: 'default',
+      url: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bd7c05849e2d81/modify',
+      status: 403,
+      statusText: 'Forbidden',
+      headers: [Object],
+      counter: 0,
+      highWaterMark: 16384
+    }
+  },
+  code: 403,
+  status: 403,
+  error: undefined,
+  Symbol(gaxios-gaxios-error): '7.1.3',
+  [cause]: {
+    message: 'Request had insufficient authentication scopes.',
+    code: 403,
+    status: 'PERMISSION_DENIED',
+    errors: [ [Object] ],
+    details: [ [Object] ]
+  }
+}
+Failed to process message 19bcea8db519d425 GaxiosError: Request had insufficient authentication scopes.
+    at Gaxios._request (C:\Users\ebrne\AutoMailer\node_modules\gaxios\src\gaxios.ts:213:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async OAuth2Client.requestAsync (C:\Users\ebrne\AutoMailer\node_modules\google-auth-library\build\src\auth\oauth2client.js:463:20)
+    at async createAPIRequestAsync (C:\Users\ebrne\AutoMailer\node_modules\googleapis-common\build\src\apirequest.js:308:25)
+    at async scanBouncesForUser (C:\Users\ebrne\AutoMailer\lib\bounce-scanner.ts:169:21)
+    at async fetchBounces (C:\Users\ebrne\AutoMailer\scripts\fetch-gmail-bounces.ts:19:28) {
+  config: {
+    url: URL {
+      href: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bcea8db519d425/modify',
+      origin: 'https://gmail.googleapis.com',
+      protocol: 'https:',
+      username: '',
+      password: '',
+      host: 'gmail.googleapis.com',
+> Processed: 0
+
+Bounce check complete.
+      hostname: 'gmail.googleapis.com',
+      port: '',
+      pathname: '/gmail/v1/users/me/messages/19bcea8db519d425/modify',
+      search: '',
+      searchParams: URLSearchParams {},
+      hash: ''
+    },
+    method: 'POST',
+    apiVersion: '',
+    userAgentDirectives: [ [Object] ],
+    data: { removeLabelIds: [Array] },
+    headers: Headers {
+      'accept-encoding': 'gzip',
+      authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+      'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+      'content-type': 'application/json'
+    },
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    body: '{"removeLabelIds":["UNREAD"]}',
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    duplex: 'half',
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1768854520258,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: Response {
+    size: 0,
+    data: { error: [Object] },
+    config: {
+      url: URL {},
+      method: 'POST',
+      apiVersion: '',
+      userAgentDirectives: [Array],
+      data: [Object],
+      headers: Headers {
+        'accept-encoding': 'gzip',
+        authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+        'user-agent': 'google-api-nodejs-client/8.0.1 (gzip)',
+        'x-goog-api-client': 'gdcl/8.0.1 gl-node/24.12.0',
+        'content-type': 'application/json'
+      },
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      body: '{"removeLabelIds":["UNREAD"]}',
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor],
+      duplex: 'half'
+    },
+    Symbol(Body internals): {
+      body: [Gunzip],
+      stream: [Gunzip],
+      boundary: null,
+      disturbed: true,
+      error: null
+    },
+    Symbol(Response internals): {
+      type: 'default',
+      url: 'https://gmail.googleapis.com/gmail/v1/users/me/messages/19bcea8db519d425/modify',
+      status: 403,
+      statusText: 'Forbidden',
+      headers: [Object],
+      counter: 0,
+      highWaterMark: 16384
+    }
+  },
+  code: 403,
+  status: 403,
+  error: undefined,
+  Symbol(gaxios-gaxios-error): '7.1.3',
+  [cause]: {
+    message: 'Request had insufficient authentication scopes.',
+    code: 403,
+    status: 'PERMISSION_DENIED',
+    errors: [ [Object] ],
+    details: [ [Object] ]
+  }
+}

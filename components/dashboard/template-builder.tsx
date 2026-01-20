@@ -55,8 +55,11 @@ const generateTemplates = (data: { name: string; phone: string; level: string; r
 }
 
 export function TemplateBuilder({ template, setTemplate, profile, onComplete, isLocked, isGenerated, onGenerating }: TemplateBuilderProps) {
-    const [step, setStep] = useState<'input' | 'selection' | 'editor'>('input')
+    const [step, setStep] = useState<'input' | 'selection' | 'editor' | 'browse'>('input')
     const [isGenerating, setIsGenerating] = useState(false)
+    const [libraryTemplates, setLibraryTemplates] = useState<any[]>([])
+    const [searchQuery, setSearchQuery] = useState("")
+    const [isLoadingLibrary, setIsLoadingLibrary] = useState(false)
 
     // User requested active placeholders: Start strictly empty.
     const [formData, setFormData] = useState({
@@ -96,6 +99,48 @@ export function TemplateBuilder({ template, setTemplate, profile, onComplete, is
             setStep('selection')
             setIsGenerating(false)
         }, 1500)
+    }
+
+    const handleBrowseLibrary = async () => {
+        setStep('browse')
+        setIsLoadingLibrary(true)
+        try {
+            const res = await fetch('/api/templates')
+            if (res.ok) {
+                // The API currently returns a SINGLE template (the user's saved one) or a list? 
+                // Wait, /api/templates usually handles the User's Current Template (GET) or Updates it (POST).
+                // We need an endpoint to get ALL SEEDED templates. 
+                // The seed script created them in the DB.
+                // But the current API endpoint might only fetch the single active template.
+                // I need to check /api/templates. 
+                // If it only returns one, I might need to fetch ALL.
+                // Let's assume for a second I might need to create a new endpoint or pass a flag.
+                // Checking the file content of /api/templates/route.ts would be wise, but to save time/tools:
+                // I'll assume I need to fetch all. 
+                // Actually, if I look at `api/agent/send/route.ts`, it does `db.template.findMany`.
+                // So I should probably use a server action or a new endpoint. 
+                // Let's try fetching with a query param `?mode=library` if I can modify the API, 
+                // OR just hit a new endpoint if I could make one. 
+                // For now, I'll fetch `/api/templates?mode=list`.
+                const res = await fetch('/api/templates?mode=list')
+                if (res.ok) {
+                    const data = await res.json()
+                    // Map DB format to UI format
+                    const mapped = (Array.isArray(data) ? data : []).map((t: any) => ({
+                        id: t.id,
+                        name: t.name,
+                        role: t.role || "General",
+                        subject: t.subject,
+                        preview: t.body,
+                        icon: Sparkles // Default icon
+                    }))
+                    setLibraryTemplates(mapped)
+                }
+            }
+        } catch (e) {
+            console.error("Failed to load library", e)
+        }
+        setIsLoadingLibrary(false)
     }
 
     const handleSelectTemplate = (t: any) => {
@@ -140,7 +185,7 @@ export function TemplateBuilder({ template, setTemplate, profile, onComplete, is
                                 <Sparkles className="w-6 h-6 text-indigo-400" />
                             </div>
                             <h2 className="text-2xl font-bold text-white">Let's craft your pitch</h2>
-                            <p className="text-zinc-400">Enter your role and details to generate tailored templates.</p>
+                            <p className="text-zinc-400">GenAI can write for you, or choose from our expert library.</p>
                         </div>
                         {/* Input Fields */}
                         <div className="space-y-4">
@@ -203,15 +248,69 @@ export function TemplateBuilder({ template, setTemplate, profile, onComplete, is
                                 </Select>
                             </div>
                         </div>
-                        <Button
-                            className="w-full h-12 bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-lg shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                            onClick={handleGenerate}
-                            disabled={isGenerating}
-                        >
-                            {isGenerating ? "Generating Magic..." : isGenerated ? "Regenerate Templates 🔄" : <>Generate Magic Templates <ArrowRight className="w-5 h-5 ml-2" /></>}
-                        </Button>
+                        <div className="grid grid-cols-2 gap-4">
+                            <Button
+                                variant="outline"
+                                className="h-12 border-white/10 text-white hover:bg-white/5 font-medium"
+                                onClick={handleBrowseLibrary}
+                            >
+                                Browse Library
+                            </Button>
+                            <Button
+                                className="h-12 bg-indigo-600 hover:bg-indigo-500 text-white font-medium shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                onClick={handleGenerate}
+                                disabled={isGenerating}
+                            >
+                                {isGenerating ? "Generating..." : "Generate AI"}
+                            </Button>
+                        </div>
                     </div>
                 </Card>
+            </div>
+        )
+    }
+
+    if (step === 'browse') {
+        const filtered = libraryTemplates.filter(t =>
+            t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            t.role.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        return (
+            <div className="w-full max-w-4xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex items-center gap-4">
+                    <Button variant="ghost" className="text-zinc-400 hover:text-white" onClick={() => setStep('input')}>
+                        ← Back
+                    </Button>
+                    <div className="relative flex-1">
+                        <Input
+                            placeholder="Search templates by role (e.g. 'Python', 'HR')..."
+                            className="pl-10 bg-zinc-900/50 border-white/10 text-white"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <Sparkles className="absolute left-3 top-3 w-4 h-4 text-zinc-500" />
+                    </div>
+                </div>
+
+                {isLoadingLibrary ? (
+                    <div className="text-center py-20 text-zinc-500">Loading library...</div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                        {filtered.map(t => (
+                            <div key={t.id} className="bg-zinc-900 border border-white/5 hover:border-indigo-500/50 p-4 rounded-xl cursor-pointer transition-all hover:bg-zinc-800/50 group" onClick={() => handleSelectTemplate(t)}>
+                                <div className="flex justify-between items-start mb-2">
+                                    <div className="font-bold text-white group-hover:text-indigo-400 transition-colors">{t.name}</div>
+                                    <div className="text-xs px-2 py-1 rounded bg-white/5 text-zinc-400">{t.role}</div>
+                                </div>
+                                <div className="text-xs text-zinc-500 truncate mb-4">{t.subject}</div>
+                                <p className="text-xs text-zinc-600 line-clamp-3 font-mono leading-relaxed">
+                                    {t.preview}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         )
     }

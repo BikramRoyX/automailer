@@ -88,12 +88,15 @@ export function WorkflowTabs({ currentStep, onStepChange, status, locks }: Workf
                                     {/* Icon Box */}
                                     <div className={cn(
                                         "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
-                                        isActive ? "bg-indigo-500/20 text-indigo-400" :
-                                            tab.isLocked ? "bg-white/5 text-zinc-500" : // LOCKED takes priority over complete
-                                                isComplete ? "bg-green-500/10 text-green-500" : "bg-white/5 text-zinc-500"
+                                        tab.isLocked ? "bg-white/5 text-zinc-500" :
+                                            isComplete ? "bg-green-500/10 text-green-500" :
+                                                isActive ? "bg-indigo-500/20 text-indigo-400" :
+                                                    "bg-white/5 text-zinc-500"
                                     )}>
                                         {tab.isLocked ? (
                                             <Lock className="w-4 h-4" />
+                                        ) : isComplete ? (
+                                            <Check className="w-4 h-4" />
                                         ) : (
                                             <Icon className="w-4 h-4" />
                                         )}

@@ -19,20 +19,15 @@ export async function GET(req: Request) {
         if (take > 1000) take = 1000
         if (take < 1) take = 1
 
-        const contacts = await db.contact.findMany({
-            where: {
-                userId: session.user.id,
-                status: "fresh"
-            },
-            take: take,
-            select: {
-                id: true,
-                email: true,
-                company: true,
-                role: true,
-                name: true
-            }
-        })
+        // Randomize the batch to avoid stuck queues or repetitive ordering
+        const contacts = await db.$queryRaw<any[]>`
+            SELECT id, email, company, role, name 
+            FROM "Contact" 
+            WHERE "userId" = ${session.user.id} 
+            AND status = 'fresh'
+            ORDER BY RANDOM()
+            LIMIT ${take}
+        `;
 
         return NextResponse.json({ contacts })
     } catch (error) {

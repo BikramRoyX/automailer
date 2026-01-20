@@ -92,6 +92,20 @@ export async function GET() {
                 statusMessage = "Token Expired/Revoked"
             } else if (error.code === 403) {
                 statusMessage = "Insufficient Permissions (Scopes)"
+
+                // DEBUG: Check actual scopes
+                try {
+                    const tokenInfoRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?access_token=${accessToken}`)
+                    const tokenInfo = await tokenInfoRes.json()
+                    console.warn(`[Scope Debug] Actual Scopes: ${tokenInfo.scope}`)
+
+                    if (tokenInfo.scope && !tokenInfo.scope.includes("gmail.send")) {
+                        statusMessage = "Missing 'Send' Permission. Please reconnect and check the box."
+                    }
+                } catch (e) {
+                    console.error("Failed to debug token scopes", e)
+                }
+
                 if (error.message.includes("quota")) statusMessage = "Quota Exceeded"
             } else {
                 statusMessage = `Error: ${error.message}`

@@ -36,6 +36,7 @@ export function AgentControlPanel({
 
     // Simulate live logs for "Techy" feel
     const [logs, setLogs] = useState<string[]>(["> System initialized...", "> Waiting for command..."])
+    const [isLocking, setIsLocking] = useState(false) // Prevents hammer-clicking
 
     useEffect(() => {
         if (isRunning) {
@@ -147,8 +148,14 @@ export function AgentControlPanel({
                             <div className="relative">
                                 <div className={`absolute inset-0 bg-indigo-500/20 blur-3xl rounded-full transition-opacity duration-500 ${isReady && !isRunning ? "opacity-100" : "opacity-0"}`} />
                                 <Button
-                                    onClick={onRunAgent}
-                                    disabled={!isReady || isRunning || remaining === 0}
+                                    onClick={() => {
+                                        // Locking Mechanism: Immediate Visual Feedback
+                                        // This prevents the user from clicking twice before React updates 'isRunning' state
+                                        setIsLocking(true)
+                                        setTimeout(() => setIsLocking(false), 2000) // Safety unlock if logic fails
+                                        onRunAgent()
+                                    }}
+                                    disabled={!isReady || isRunning || isLocking || remaining === 0}
                                     className={cn(
                                         "w-40 h-40 rounded-full border-4 relative z-10 transition-all duration-300 flex flex-col items-center justify-center gap-2 group",
                                         isRunning

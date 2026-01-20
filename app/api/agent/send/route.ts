@@ -309,13 +309,46 @@ export async function POST(req: Request) {
             userTitle = (field.includes("Developer") || field.includes("Engineer") || field.includes("Analyst")) ? field : `${field} Developer`
         }
 
+        // 3. Strict Email Validation
+        const strictEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!strictEmailRegex.test(contact.email)) {
+            console.log(`❌ Invalid Email Format: ${contact.email}`)
+            // Log as error but return 422 so frontend skips it
+            await db.log.create({
+                data: {
+                    userId: user.id,
+                    type: "error",
+                    message: `Skipped Invalid Email: ${contact.email}`
+                }
+            })
+            // Mark contact as Invalid so we don't try again
+            await db.contact.update({
+                where: { id: contactId },
+                data: { status: "bounced", verificationStatus: "invalid", bounceDescription: "Invalid Format" }
+            })
+            return NextResponse.json({ error: "Invalid Email Format", skipped: true }, { status: 422 })
+        }
+
         const replaceVars = (text: string) => {
             let content = text || "";
 
+            // 2. Variable Replacement with Safeguards
+            // Safe Replacements: If variable missing, provide generic fallback so email doesn't look broken.
+            // e.g. "Dear ," -> "Dear there,"
+
+            let safeName = contact.name || "there"
+            // If name is just whitespace, fallback
+            if (!safeName.trim()) safeName = "there"
+
+            let safeCompany = contact.company || "your company"
+            if (!safeCompany.trim()) safeCompany = "your company"
+
             // Standard Replacements
             content = content
-                .replace(/{{name}}/g, contact.name || "there")
-                .replace(/{{company}}/g, contact.company || "your company")
+                .replace(/{{name}}/g, safeName)
+                .replace(/\[Name\]/g, safeName) // Legacy bracket support
+                .replace(/{{company}}/g, safeCompany)
+                .replace(/\[Company\]/g, safeCompany)
                 .replace(/{{role}}/g, contact.role || "Hiring Manager")
                 .replace(/\[My Role\]/gi, userTitle)
                 .replace(/\[Role\]/gi, userTitle)
@@ -327,7 +360,6 @@ export async function POST(req: Request) {
 
             content = content
                 .replace(/{{sender_name}}/g, senderName)
-                .replace(/\[Name\]/g, contact.name || "Hiring Manager") // Legacy support
                 .replace(/{{sender_phone}}/g, senderPhone)
                 .replace(/\[My Phone\]/g, senderPhone);
 

@@ -37,9 +37,42 @@ export async function GET() {
             return NextResponse.json({ error: "User not found" }, { status: 404 })
         }
 
-        // 1. Gmail Connected (Strict Mode: Must appear as 'google-gmail' provider)
-        const googleAccount = user.accounts.find(acc => acc.provider === "google-gmail")
-        const gmail_connected = !!googleAccount
+        // 1. Gmail Connected (Strict Mode: Must appear as 'google-gmail' provider + Valid Token)
+        let gmail_connected = false
+
+        // Fix: Sort accounts to get the MOST RECENT one, just like settings API.
+        // Prisma 'include' does not guarantee order suitable for 'latest connection'.
+        // DIRECT DB QUERY: Match exact logic of Settings API
+        const googleAccount = await prisma.account.findFirst({
+            where: {
+                userId: user.id,
+                provider: "google-gmail"
+            },
+            orderBy: { expires_at: 'desc' }
+        })
+
+        if (googleAccount && googleAccount.access_token) {
+            // STRICT CHECK: Verify token validity & scopes
+            // We do this because user can have a DB record but revoked permissions/missing scopes.
+            try {
+                // Using tokeninfo is fast and specifically checks scopes
+                const tokenCheck = await fetch(`https://oauth2.googleapis.com/tokeninfo?access_token=${googleAccount.access_token}`)
+
+                if (tokenCheck.ok) {
+                    const tokenData = await tokenCheck.json()
+                    // Check for vital scope
+                    if (tokenData.scope && (tokenData.scope.includes("gmail.send") || tokenData.scope.includes("mail.google.com"))) {
+                        gmail_connected = true
+                    } else {
+                        console.warn(`[Agent Status] Token valid but missing 'gmail.send' scope: ${tokenData.scope}`)
+                    }
+                } else {
+                    console.warn(`[Agent Status] Token verification failed: ${tokenCheck.status}`)
+                }
+            } catch (validateErr) {
+                console.error("[Agent Status] Token validation error:", validateErr)
+            }
+        }
 
         // 2. Counts
         const template_count = user._count.templates

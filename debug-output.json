@@ -1,0 +1,20 @@
+{
+  "userId": "cmkjshum60000z9d3uu7flexk",
+  "name": "#Bikram Roy",
+  "accounts": [
+    {
+      "provider": "google",
+      "scope": "https://www.googleapis.com/auth/userinfo.profile openid https://www.googleapis.com/auth/userinfo.email",
+      "hasAccessToken": true,
+      "hasRefreshToken": true,
+      "tokenPrefix": "ya29."
+    },
+    {
+      "provider": "google-gmail",
+      "scope": "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email openid",
+      "hasAccessToken": true,
+      "hasRefreshToken": true,
+      "tokenPrefix": "ya29."
+    }
+  ]
+}

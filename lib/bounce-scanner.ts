@@ -4,9 +4,19 @@ import { OAuth2Client } from 'google-auth-library'
 import { db } from "@/lib/db"
 
 export async function scanBouncesForUser(userId: string) {
-    const account = await db.account.findFirst({
-        where: { userId, provider: { in: ['google', 'google-gmail'] } }
+    // 1. Prioritize 'google-gmail' (High Scope)
+    let account = await db.account.findFirst({
+        where: { userId, provider: "google-gmail" },
+        orderBy: { expires_at: 'desc' }
     })
+
+    // Fallback? Ideally NO, because 'google' doesn't have read/send permissions.
+    // But if we want to be safe:
+    if (!account) {
+        account = await db.account.findFirst({
+            where: { userId, provider: "google" }
+        })
+    }
 
     if (!account?.access_token) return { processed: 0, errors: ["No Gmail account linked"] }
 
@@ -140,7 +150,7 @@ export async function scanBouncesForUser(userId: string) {
                             // Clean HR List
                             await db.globalHrList.updateMany({
                                 where: { email: bouncedEmail },
-                                data: { status: 'BOUNCED' }
+                                data: { status: 'bounced' }
                             })
 
                             // Update Local Records

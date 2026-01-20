@@ -38,6 +38,7 @@ function CompanyLogo({ domain, company }: { domain: string, company: string }) {
 interface SendingFlowProps {
     contacts: any[]
     template: any
+    targetCount?: number // New Prop
     onComplete: (stats: { sent: number; failed: number }) => void
     onStop: () => void
 }
@@ -47,7 +48,7 @@ type StepStatus = "analyzing" | "matching" | "verifying" | "sending" | "success"
 // Helper for domain extraction
 const getDomain = (email: string) => (email || "").split('@')[1] || ""
 
-export function SendingFlow({ contacts, template, onComplete, onStop }: SendingFlowProps) {
+export function SendingFlow({ contacts, template, targetCount = -1, onComplete, onStop }: SendingFlowProps) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [status, setStatus] = useState<StepStatus>("analyzing")
     const [logs, setLogs] = useState<string[]>([])
@@ -80,13 +81,21 @@ export function SendingFlow({ contacts, template, onComplete, onStop }: SendingF
     useEffect(() => {
         if (isProcessing.current) return
 
+        // SUCCESS CONDITION CHECK:
+        // If we have a target count (not MAX/-1) and we reached it, STOP.
+        if (targetCount !== -1 && stats.sent >= targetCount) {
+            addLog(`TARGET REACHED (${targetCount}). Stopping.`);
+            setTimeout(() => onComplete(stats), 1000);
+            return;
+        }
+
         if (contacts.length > 0 && currentIndex < contacts.length) {
             isProcessing.current = true
             processContact(contacts[currentIndex])
         } else if (currentIndex >= contacts.length && contacts.length > 0) {
             onComplete(stats)
         }
-    }, [currentIndex])
+    }, [currentIndex, stats.sent]) // Re-run when stats.sent changes to check target
 
     const processContact = async (contact: any) => {
         try {

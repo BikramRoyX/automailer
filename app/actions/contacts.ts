@@ -40,15 +40,14 @@ export async function copySystemContacts() {
 
         // 3. Fetch Fresh Contacts from Community DB
         // Fetch up to 1000 to filtering
-        let globalContacts = await db.globalHrList.findMany({
-            where: {
-                status: "safe",
-                // Primary database-level exclusion if list is small enough, 
-                // but we do in-memory filter below for full coverage of complex checks
-            },
-            take: 1000,
-            orderBy: { id: 'desc' } // Get newest first
-        })
+        // 3. Fetch Fresh Contacts from Community DB (Randomized)
+        // Use raw query for RANDOM() ordering to ensure uniform distribution
+        const globalContacts = await db.$queryRaw<any[]>`
+            SELECT * FROM "GlobalHrList" 
+            WHERE status = 'safe' 
+            ORDER BY RANDOM() 
+            LIMIT 500
+        `;
 
         // Filter against exclusion list
         let validCandidates = globalContacts.filter(c => !excludedEmails.has(c.email.toLowerCase()));
