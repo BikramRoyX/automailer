@@ -142,25 +142,20 @@ export async function GET(request: Request) {
             })
         }
 
-        // 4. Recent Bounces (Global) - Using queryRaw to bypass Prisma Client generation issues
+        // 4. Recent Bounces (Global)
         let recentBounces: any[] = [];
         try {
-            // Using raw query to be safe against schema mismatches during dev
-            recentBounces = await prisma.$queryRaw`
-                SELECT email, reason, lastBouncedAt 
-                FROM GlobalBounce 
-                ORDER BY lastBouncedAt DESC 
-                LIMIT 5
-            ` as any[];
-
-            // Normalize dates if needed (Raw queries return strings or Date objects depending on driver)
-            recentBounces = recentBounces.map(b => ({
-                ...b,
-                lastBouncedAt: b.lastBouncedAt ? new Date(b.lastBouncedAt) : new Date()
-            }));
-
+            recentBounces = await prisma.globalBounce.findMany({
+                orderBy: { lastBouncedAt: 'desc' },
+                take: 5,
+                select: {
+                    email: true,
+                    reason: true,
+                    lastBouncedAt: true
+                }
+            })
         } catch (e) {
-            console.error("Failed to fetch recent bounces (Raw):", e)
+            console.error("Failed to fetch recent bounces:", e)
         }
 
         // 5. Recent Activity Logs (For Profile Feed)

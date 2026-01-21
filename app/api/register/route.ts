@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { z } from "zod";
 
 const userSchema = z.object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
     email: z.string().email(),
     password: z.string().min(6, "Password must be at least 6 characters"),
 });
@@ -11,7 +12,7 @@ const userSchema = z.object({
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { email, password } = userSchema.parse(body);
+        const { name, email, password } = userSchema.parse(body);
 
         const existingUser = await db.user.findUnique({
             where: { email },
@@ -27,6 +28,7 @@ export async function POST(req: Request) {
         const hashedPassword = await hash(password, 10);
         const newUser = await db.user.create({
             data: {
+                name,
                 email,
                 passwordHash: hashedPassword,
             },

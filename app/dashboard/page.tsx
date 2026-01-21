@@ -223,7 +223,7 @@ export default function DashboardPage() {
     }, [template])
 
     // 1. Loading State
-    if (isLoading || !agentStatus) {
+    if (isLoading) {
         return (
             <div className="space-y-8 animate-pulse p-1">
                 <div className="space-y-4">
@@ -239,6 +239,29 @@ export default function DashboardPage() {
                     <Skeleton className="h-[400px] w-full rounded-3xl bg-white/5" />
                     <Skeleton className="h-[400px] w-full rounded-3xl bg-white/5" />
                 </div>
+            </div>
+        )
+    }
+
+    // 2. Error State (Failed to load critical data)
+    if (!agentStatus) {
+        return (
+            <div className="h-[60vh] flex flex-col items-center justify-center text-center space-y-6 animate-in fade-in">
+                <div className="p-6 rounded-full bg-red-500/10 border border-red-500/20">
+                    <div className="text-red-500 font-mono text-xl">ERR_CONNECTION_REFUSED</div>
+                </div>
+                <div className="max-w-md space-y-2">
+                    <h1 className="text-2xl font-bold text-white">System Unavailable</h1>
+                    <p className="text-zinc-400">
+                        We couldn't connect to the agent network. This might be due to a temporary maintenance or connection issue.
+                    </p>
+                </div>
+                <Button
+                    onClick={() => { setIsLoading(true); fetchStatus(); }}
+                    className="bg-white text-black hover:bg-zinc-200"
+                >
+                    Retry Connection
+                </Button>
             </div>
         )
     }

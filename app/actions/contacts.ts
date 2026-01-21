@@ -3,6 +3,7 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
+import { createNotification } from "@/lib/notifications"
 
 export async function copySystemContacts() {
     try {
@@ -131,6 +132,13 @@ export async function copySystemContacts() {
         if (addedCount === 0) {
             return { success: false, message: "No new valid contacts available. You may have added all of them." }
         }
+
+        await createNotification(
+            userId,
+            "Contacts Seeding",
+            `Added ${addedCount} verified contacts from Community Database.`,
+            "success"
+        )
 
         return { success: true, message: `Added ${addedCount} verified contacts from Community Database.` }
 

@@ -44,7 +44,7 @@ function LoginContent() {
     }, [status, router])
 
     if (status === "authenticated") {
-        return null;
+        return <ScreenLoader visible={true} message="Taking you to your dashboard..." />;
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -76,7 +76,7 @@ function LoginContent() {
             <ScreenLoader visible={loading || status === "loading"} message="Accessing your workspace..." />
 
             {/* Left Side - Form */}
-            <div className="w-full lg:w-[45%] flex flex-col p-8 md:p-12 lg:p-16 relative z-10 bg-black/50 backdrop-blur-sm">
+            <div className="w-full lg:w-1/2 flex flex-col p-8 md:p-12 lg:p-16 relative z-10 bg-black/50 backdrop-blur-sm">
                 <div className="mb-10">
                     <Link href="/" className="fit-content">
                         <Logo />

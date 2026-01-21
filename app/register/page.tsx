@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { signIn, useSession } from "next-auth/react"
 import Link from "next/link"
@@ -11,16 +11,23 @@ import { motion } from "framer-motion"
 import { Loader2, Mail, CheckCircle2, ArrowRight } from "lucide-react"
 import { Logo } from "@/components/logo"
 import { SwipeableCards } from "@/components/swipeable-cards"
+import { ScreenLoader } from "@/components/ui/screen-loader"
 
 export default function RegisterPage() {
     const router = useRouter()
     const { data: session, status } = useSession()
 
+    useEffect(() => {
+        if (status === "authenticated") {
+            router.push("/dashboard")
+        }
+    }, [status, router])
+
     if (status === "authenticated") {
-        router.push("/dashboard")
-        return null
+        return <ScreenLoader visible={true} message="Taking you to your dashboard..." />
     }
 
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
@@ -35,7 +42,7 @@ export default function RegisterPage() {
             const res = await fetch("/api/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ name, email, password }),
             })
 
             const data = await res.json()
@@ -104,6 +111,18 @@ export default function RegisterPage() {
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
+                        <div className="space-y-2">
+                            <Label htmlFor="name" className="text-sm font-medium text-gray-300">Full Name</Label>
+                            <Input
+                                id="name"
+                                type="text"
+                                placeholder="Bikram Roy"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                                className="h-12 bg-white/5 border-white/10 text-white placeholder:text-gray-600 focus:border-indigo-500/50 focus:bg-white/10 rounded-xl transition-all"
+                            />
+                        </div>
                         <div className="space-y-2">
                             <Label htmlFor="email" className="text-sm font-medium text-gray-300">Email</Label>
                             <Input

@@ -129,17 +129,8 @@ export const authOptions: NextAuthOptions = {
                         const dbUser = await db.user.findUnique({ where: { email: user.email } })
 
                         if (dbUser) {
-                            // 2. Reset Workflow State (Strict Requirement)
-                            await db.user.update({
-                                where: { id: dbUser.id },
-                                data: {
-                                    communityStatus: 'NOT_SELECTED',
-                                    templateStatus: 'NOT_STARTED'
-                                    // Note: We are NOT deleting the resume file, so resumeStatus stays 'UPLOADED' if present, 
-                                    // but user must re-select community to proceed.
-                                }
-                            })
-                            logAuth("User Login - Reset Workflow State", { userId: dbUser.id });
+                            // Logic to reset workflow removed to persist state across sessions.
+                            // We trust the database state.
                         }
                     } catch (error) {
                         console.error("Error in sign-in callback:", error)

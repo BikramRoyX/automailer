@@ -7,6 +7,7 @@ import { promises as fs } from "fs"
 import path from "path"
 import { resolveMx } from "dns/promises"
 import crypto from "crypto"
+import { createNotification } from "@/lib/notifications"
 
 export async function POST(req: Request) {
     let session: any;
@@ -427,6 +428,14 @@ export async function POST(req: Request) {
             })
             // We do NOT throw here, so the user still gets a "success" response since the email effectively went out.
         }
+
+        // 7. Notify User (Non-blocking)
+        createNotification(
+            session.user.id,
+            "Application Sent",
+            `Successfully sent application to ${contact.role} at ${contact.company}`,
+            "success"
+        ).catch(err => console.error("Notification failed", err));
 
         return NextResponse.json({ success: true, messageId: sentResult.id })
 

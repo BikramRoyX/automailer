@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import Papa from "papaparse"
+import { createNotification } from "@/lib/notifications"
 
 export async function uploadFile(formData: FormData) {
     const session = await getServerSession(authOptions)
@@ -33,6 +34,12 @@ export async function uploadFile(formData: FormData) {
                     resumeStatus: 'UPLOADED'
                 }
             })
+            await createNotification(
+                user.id,
+                "Resume Uploaded",
+                `Successfully uploaded ${file.name}`,
+                "success"
+            )
             return { success: true, message: "Resume uploaded successfully!", filename: file.name }
         }
 
@@ -48,9 +55,11 @@ export async function uploadFile(formData: FormData) {
             let count = 0
             let skipped = 0
 
-            // Get User ID
+            // Get User ID early
             const user = await db.user.findUnique({ where: { email: session.user.email } })
-            if (!user) throw new Error("User not found")
+            if (!user) {
+                return { success: false, message: "User not found" }
+            }
 
             // Regex for strict email validation
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -164,6 +173,13 @@ export async function uploadFile(formData: FormData) {
                 where: { id: user.id },
                 data: updateData
             })
+
+            await createNotification(
+                user.id,
+                "Contacts Imported",
+                `Imported ${count} contacts from CSV.`,
+                "success"
+            )
 
             return {
                 success: true,

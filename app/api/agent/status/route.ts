@@ -39,6 +39,7 @@ export async function GET() {
 
         // 1. Gmail Connected (Strict Mode: Must appear as 'google-gmail' provider + Valid Token)
         let gmail_connected = false
+        let connected_email = session.user.email // Fallback to login email
 
         // Fix: Sort accounts to get the MOST RECENT one, just like settings API.
         // Prisma 'include' does not guarantee order suitable for 'latest connection'.
@@ -62,6 +63,10 @@ export async function GET() {
                     // Check for vital scope
                     if (tokenData.scope && (tokenData.scope.includes("gmail.send") || tokenData.scope.includes("mail.google.com"))) {
                         gmail_connected = true
+                        // Use the actual email from the token if available
+                        if (tokenData.email) {
+                            connected_email = tokenData.email
+                        }
                     } else {
                         console.warn(`[Agent Status] Token valid but missing 'gmail.send' scope. Scopes found: ${tokenData.scope}`)
                     }
@@ -122,7 +127,7 @@ export async function GET() {
         return NextResponse.json({
             authenticated: true,
             gmail_connected,
-            gmail_email: session.user.email, // Or fetch from Google profile if needed
+            gmail_email: connected_email,
             template_count,
             contact_count,
             fresh_contact_count,

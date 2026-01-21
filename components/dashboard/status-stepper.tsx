@@ -56,7 +56,9 @@ export function StatusStepper({ status }: StatusStepperProps) {
                 {/* Connecting Line - Active */}
                 <div
                     className="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] bg-gradient-to-r from-indigo-500 to-purple-500 -z-10 transition-all duration-1000 ease-out"
-                    style={{ width: `${(steps.filter(s => s.completed).length / (steps.length - 1)) * 100}%` }}
+                    style={{ 
+                        width: `${Math.min(100, (steps.filter(s => s.completed).length / (steps.length - 1)) * 100)}%` 
+                    }}
                 />
 
                 {steps.map((step, idx) => {

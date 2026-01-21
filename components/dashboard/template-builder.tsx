@@ -148,8 +148,12 @@ export function TemplateBuilder({ template, setTemplate, profile, onComplete, is
         setStep('editor') // Go to Editor instead of auto-completing
     }
 
+    // State for saving mechanism
+    const [isSaving, setIsSaving] = useState(false)
+
     const handleSaveFinal = async () => {
         if (!selectedDraft) return
+        setIsSaving(true)
 
         const finalTemplate = {
             name: selectedDraft.name,
@@ -163,16 +167,23 @@ export function TemplateBuilder({ template, setTemplate, profile, onComplete, is
         setTemplate({ ...template, ...finalTemplate })
 
         try {
-            await fetch('/api/templates', {
+            const res = await fetch('/api/templates', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(finalTemplate)
             })
+
+            if (res.ok) {
+                // Only proceed if save was successful
+                onComplete()
+            } else {
+                console.error("Failed to save template")
+            }
         } catch (error) {
             console.error("Failed to save:", error)
+        } finally {
+            setIsSaving(false)
         }
-
-        onComplete()
     }
 
     if (step === 'input') {
@@ -359,8 +370,16 @@ export function TemplateBuilder({ template, setTemplate, profile, onComplete, is
                         </div>
 
                         <div className="mt-8">
-                            <Button onClick={handleSaveFinal} className="w-full bg-white text-black hover:bg-zinc-200 font-bold">
-                                Save & Continue <ArrowRight className="w-4 h-4 ml-2" />
+                            <Button
+                                onClick={handleSaveFinal}
+                                disabled={isSaving}
+                                className="w-full bg-white text-black hover:bg-zinc-200 font-bold"
+                            >
+                                {isSaving ? (
+                                    <>Saving <Sparkles className="w-4 h-4 ml-2 animate-spin" /></>
+                                ) : (
+                                    <>Save & Continue <ArrowRight className="w-4 h-4 ml-2" /></>
+                                )}
                             </Button>
                         </div>
                     </div>
