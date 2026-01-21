@@ -35,12 +35,27 @@ export default function DashboardPage() {
     // Data Fetching
     const fetchStatus = async () => {
         try {
-            const [agentRes, workRes] = await Promise.all([
+            // STRICT: Fetch Gmail Status from the dedicated settings endpoint (Single Source of Truth)
+            // This endpoint performs a real API call to verify connection, unlike agent/status which might be lighter.
+            const [agentRes, workRes, gmailRes] = await Promise.all([
                 fetch(`/api/agent/status?t=${Date.now()}`),
-                fetch(`/api/workflow/status?t=${Date.now()}`)
+                fetch(`/api/workflow/status?t=${Date.now()}`),
+                fetch(`/api/settings/gmail-status?t=${Date.now()}`)
             ])
+
             const agentData = await agentRes.json()
             const workData = await workRes.json()
+            const gmailData = await gmailRes.json()
+
+            // MERGE: Override agent status with robust Gmail status
+            // This ensures Dashboard matches Settings page exactly.
+            if (gmailData) {
+                console.log("Using Gmail Source of Truth:", gmailData)
+                agentData.gmail_connected = gmailData.gmail_connected
+                if (gmailData.gmail_email) {
+                    agentData.gmail_email = gmailData.gmail_email
+                }
+            }
 
             setAgentStatus(agentData)
             setWorkStatus(workData)
